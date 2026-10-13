@@ -3,6 +3,55 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
+[project]
+name = "weave-reproduction"
+version = "0.1.0"
+description = "WEAVE paper reproduction environment (Isaac Sim 5.1, CUDA 12.8)"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "g1-hoi-learning",
+    "isaaclab",
+    "isaaclab-assets",
+    "isaaclab-contrib",
+    "isaaclab-mimic",
+    "isaaclab-rl[rsl-rl]",
+    "isaaclab-tasks",
+    "torch==2.11.0+cu128",
+    "torchvision==0.26.0+cu128",
+    "numpy==1.26.4",
+    "packaging==23.2",
+    "wheel==0.45.1",
+    "pip",
+    "setuptools",
+    "cmake",
+]
+
+[tool.uv]
+package = false
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
+build-constraint-dependencies = ["wheel==0.45.1"]
+
+[tool.uv.sources]
+g1-hoi-learning = { path = "source/g1_hoi_learning", editable = true }
+isaaclab = { path = "../IsaacLab/source/isaaclab", editable = true }
+isaaclab-assets = { path = "../IsaacLab/source/isaaclab_assets", editable = true }
+isaaclab-contrib = { path = "../IsaacLab/source/isaaclab_contrib", editable = true }
+isaaclab-mimic = { path = "../IsaacLab/source/isaaclab_mimic", editable = true }
+isaaclab-rl = { path = "../IsaacLab/source/isaaclab_rl", editable = true }
+isaaclab-tasks = { path = "../IsaacLab/source/isaaclab_tasks", editable = true }
+torch = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+default = true
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://mirror.sjtu.edu.cn/pytorch-wheels/cu128/"
+explicit = true
+
 [tool.ruff]
 line-length = 120
 target-version = "py310"

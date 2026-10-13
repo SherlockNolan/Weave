@@ -1,0 +1,16 @@
+# @package _global_
+defaults:
+  - train_pickups_dual
+  - _self_
+
+env:
+  commands:
+    motion:
+      eval_mode: true
+      rsi: false
+      motion_files:
+        - ./data/pickups/tripod_pickups.npz
+
+agent:
+  policy:
+    compile: false

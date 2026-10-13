@@ -1,0 +1,19 @@
+# @package _global_
+# Paper Q1: train on the training split. The upstream train.yaml uses the test split (Q2).
+defaults:
+  - train
+  - _self_
+
+env:
+  commands:
+    motion:
+      motion_files:
+        - ./data/train/clothesstand_861clip.npz
+        - ./data/train/floorlamp_805clip.npz
+        - ./data/train/largebox_791clip.npz
+        - ./data/train/largetable_767clip.npz
+        - ./data/train/smallbox_637clip.npz
+        - ./data/train/smalltable_824clip.npz
+        - ./data/train/tripod_1131clip.npz
+        - ./data/train/whitechair_1066clip.npz
+        - ./data/train/woodchair_987clip.npz

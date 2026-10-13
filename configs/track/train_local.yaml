@@ -1,0 +1,17 @@
+# @package _global_
+# Single-object training for the local 12 GB GPU; different scope from paper Q1.
+defaults:
+  - train_reference
+  - _self_
+
+env:
+  scene:
+    num_envs: 256
+  commands:
+    motion:
+      motion_files:
+        - ./data/train/smallbox_637clip.npz
+
+agent:
+  run_name: local-smallbox
+  max_iterations: 3000

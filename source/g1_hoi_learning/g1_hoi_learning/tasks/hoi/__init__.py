@@ -48,12 +48,45 @@ def _make_env(cfg, **kwargs):
     return ManagerBasedRLEnv(cfg=cfg, **kwargs)
 
 
+def _make_pickup_env(cfg, **kwargs):
+    from .mdp.commands import MotionLoader
+    from .pickup_cfg import configure_pickup_table
+
+    object_names = MotionLoader.object_names_of(cfg.commands.motion.motion_files)
+    configure_pickup_table(cfg, object_names)
+    env = _make_env(cfg, **kwargs)
+    from pxr import Usd, UsdPhysics
+
+    stage = sim_utils.get_current_stage()
+    for index, obj in enumerate(object_names[:cfg.scene.num_envs]):
+        root = stage.GetPrimAtPath(f"/World/envs/env_{index}/SupportTable")
+        collision_enabled = any(
+            prim.HasAPI(UsdPhysics.CollisionAPI)
+            and UsdPhysics.CollisionAPI(prim).GetCollisionEnabledAttr().Get()
+            for prim in Usd.PrimRange(root)
+        )
+        if bool(collision_enabled) != (obj == "whitechair"):
+            raise RuntimeError(f"Incorrect support-table collision assignment in env {index}: {obj}")
+    print("[PICKUPS] Verified table collisions for whitechair and no table collisions for floor tasks.")
+    return env
+
+
 gym.register(
     id="G1-Inspire-HOI-v0",
     entry_point=_make_env,
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": f"{__name__}.env_cfg:G1HoiLearningEnvCfg",
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:PPORunnerCfg",
+    },
+)
+
+gym.register(
+    id="G1-Inspire-HOI-Pickup-v0",
+    entry_point=_make_pickup_env,
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": f"{__name__}.pickup_cfg:G1HoiPickupEnvCfg",
         "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:PPORunnerCfg",
     },
 )

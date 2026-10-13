@@ -109,7 +109,8 @@ else
     ZIP="$WORKSPACE/isaac-sim-standalone-$ISAACSIM_VERSION-linux-$ARCH.zip"
     if [ ! -f "$ZIP" ]; then
         echo "📥 Downloading Isaac Sim $ISAACSIM_VERSION for $ARCH (~9 GB)..."
-        curl -fL -C - -o "$ZIP.part" \
+        curl -fL --retry 8 --retry-all-errors --connect-timeout 30 \
+            --speed-limit 1024 --speed-time 180 -C - -o "$ZIP.part" \
             "https://download.isaacsim.omniverse.nvidia.com/isaac-sim-standalone-$ISAACSIM_VERSION-linux-$ARCH.zip"
         mv "$ZIP.part" "$ZIP"
     fi

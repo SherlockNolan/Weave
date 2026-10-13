@@ -1,0 +1,12 @@
+# @package _global_
+# MotionCommand.eval_mode requires one object per invocation.
+# Override motion_files for each object when evaluating the full test split.
+defaults:
+  - eval
+  - _self_
+
+env:
+  commands:
+    motion:
+      motion_files:
+        - ./data/test/smalltable_42clip_var5.npz

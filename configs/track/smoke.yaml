@@ -1,0 +1,20 @@
+# @package _global_
+# Minimal local installation check; not a paper reproduction experiment.
+defaults:
+  - train
+  - _self_
+
+env:
+  scene:
+    num_envs: 32
+  commands:
+    motion:
+      motion_files:
+        - ./data/test/smallbox_24clip_var5.npz
+
+agent:
+  run_name: preparation-smoke
+  max_iterations: 2
+  save_interval: 1
+  policy:
+    compile: false
