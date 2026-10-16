@@ -27,7 +27,8 @@ class MimicJointPositionAction(JointPositionAction):
         driver_names = [d for d, _, _ in cfg.mimic.values()]
 
         self._mimic_joint_ids, _ = self._asset.find_joints(mimic_names, preserve_order=True)
-        self._all_joint_ids = list(self._joint_ids) + self._mimic_joint_ids
+        # Lab 3 may return device tensors for indices; Warp expects Python ints.
+        self._all_joint_ids = [int(i) for i in self._joint_ids] + [int(i) for i in self._mimic_joint_ids]
 
         driver_action_idx = [self._joint_names.index(d) for d in driver_names]
         self._driver_action_idx = torch.tensor(driver_action_idx, device=env.device, dtype=torch.long)

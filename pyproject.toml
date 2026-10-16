@@ -156,6 +156,7 @@ exclude = [
     "**/__pycache__",
     "**/_isaac_sim",
     "**/docs",
+    "**/project_page",
     "**/logs",
     ".git",
     ".vscode",

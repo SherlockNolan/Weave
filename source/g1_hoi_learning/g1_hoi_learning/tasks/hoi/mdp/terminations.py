@@ -14,6 +14,7 @@ from isaaclab.assets import Articulation, RigidObject
 from isaaclab.envs import ManagerBasedRLEnv as _ManagerBasedRLEnv
 from isaaclab.managers import ManagerTermBase, SceneEntityCfg, TerminationTermCfg
 from isaaclab.sensors import ContactSensor
+from g1_hoi_learning.isaac_compat import as_torch
 
 from .commands import MotionCommand
 
@@ -30,10 +31,10 @@ def bad_anchor_ori(
     command: MotionCommand = env.command_manager.get_term(command_name)
 
     motion_projected_gravity_b = math_utils.quat_apply_inverse(
-        command.anchor_quat_w, asset.data.GRAVITY_VEC_W
+        command.anchor_quat_w, as_torch(asset.data.GRAVITY_VEC_W)
     )
     robot_projected_gravity_b = math_utils.quat_apply_inverse(
-        command.robot_anchor_quat_w, asset.data.GRAVITY_VEC_W
+        command.robot_anchor_quat_w, as_torch(asset.data.GRAVITY_VEC_W)
     )
 
     return (motion_projected_gravity_b[:, 2] - robot_projected_gravity_b[:, 2]).abs() > threshold
@@ -63,10 +64,10 @@ def bad_object_ori(
     command: MotionCommand = env.command_manager.get_term(command_name)
 
     ref_projected_gravity_b = math_utils.quat_apply_inverse(
-        command.ref_obj_quat_w, asset.data.GRAVITY_VEC_W
+        command.ref_obj_quat_w, as_torch(asset.data.GRAVITY_VEC_W)
     )
     obj_projected_gravity_b = math_utils.quat_apply_inverse(
-        command.obj_quat_w, asset.data.GRAVITY_VEC_W
+        command.obj_quat_w, as_torch(asset.data.GRAVITY_VEC_W)
     )
 
     return (ref_projected_gravity_b[:, 2] - obj_projected_gravity_b[:, 2]).abs() > threshold

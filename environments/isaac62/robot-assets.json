@@ -1,0 +1,34 @@
+{
+  "description": "Original Isaac Sim 5.1 URDF conversion reused to retain capsule geometry, mimic joints and checkpoint joint layout.",
+  "source": "outputs/unified-pickups/model_64200/sub16_clothesstand_012_v03/robot_usd",
+  "files": [
+    {
+      "path": ".asset_hash",
+      "sha256": "bdfc4930ffd4cb5f460a3f66cf0c824d5c2ec174c7bfc94a4ab16105cd639df5"
+    },
+    {
+      "path": "config.yaml",
+      "sha256": "f71bf52324aa4ce7cec745ee43f3dbf66d51589f100287576166e68ab97774e4"
+    },
+    {
+      "path": "configuration/g1_29dof_rev_1_0_with_inspire_hand_DFQ_base.usd",
+      "sha256": "3cfc22fb80da35aa9083c20902bf175fbe5c9d78b9099321417f93bb9761334b"
+    },
+    {
+      "path": "configuration/g1_29dof_rev_1_0_with_inspire_hand_DFQ_physics.usd",
+      "sha256": "65b945c131862eaec8aff4bbb4ab969cd16c05f69798fcd0cca8f50b6847c077"
+    },
+    {
+      "path": "configuration/g1_29dof_rev_1_0_with_inspire_hand_DFQ_robot.usd",
+      "sha256": "4893e16506db0ec994c782118e25b436871b0c74b8a070220c397b9866224749"
+    },
+    {
+      "path": "configuration/g1_29dof_rev_1_0_with_inspire_hand_DFQ_sensor.usd",
+      "sha256": "30ff9373a20c9352030280ccd4073861618ea827c1660da37ad51f905e00bb10"
+    },
+    {
+      "path": "g1_29dof_rev_1_0_with_inspire_hand_DFQ.usd",
+      "sha256": "dc43453399e65ef76158bf4c10a7ef211daff908fa92df9d9f4ce398d0976e52"
+    }
+  ]
+}

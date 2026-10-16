@@ -4,6 +4,8 @@
 .gitignore
 # ignore docs
 docs/
+# ignore the static project website
+project_page/
 # copy in licenses folder to the container
 !docs/licenses/
 # ignore logs

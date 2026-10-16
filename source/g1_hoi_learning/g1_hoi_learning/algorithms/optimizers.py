@@ -70,6 +70,10 @@ class OptimizerGroup(torch.optim.Optimizer):
             )
         for opt, opt_state in zip(self.optimizers, opt_states):
             opt.load_state_dict(opt_state)
+        # PyTorch replaces each child's param_groups when loading. Refresh the
+        # wrapper references so restored and adaptive learning rates affect the
+        # optimizers that actually step the parameters.
+        self.param_groups = [group for opt in self.optimizers for group in opt.param_groups]
 
 
 class MuonAdamWWrapper(OptimizerGroup):

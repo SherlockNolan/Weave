@@ -1,8 +1,11 @@
 import isaaclab.sim as sim_utils
+from pathlib import Path
+import logging
 from isaaclab.actuators import ImplicitActuatorCfg
 from isaaclab.assets.articulation import ArticulationCfg
 
 from g1_hoi_learning.assets import G1_INSPIRE_URDF_PATH
+from g1_hoi_learning.isaac_compat import ISAACLAB3
 
 # Motor armature values (rotor inertia reflected through gear ratio)
 ARMATURE_5020 = 0.003609725
@@ -214,3 +217,21 @@ G1_INSPIRE_CFG = ArticulationCfg(
         ),
     },
 )
+
+# Preserve the robot geometry and joint layout used by the existing checkpoints.
+# URDF importer 3 no longer applies the original capsule/mimic conversion options.
+if ISAACLAB3:
+    _repo = Path(__file__).resolve().parents[4]
+    _usd = _repo / "data/isaac62/g1_inspire_usd/g1_29dof_rev_1_0_with_inspire_hand_DFQ.usd"
+    if _usd.is_file():
+        G1_INSPIRE_CFG.spawn = sim_utils.UsdFileCfg(
+            usd_path=str(_usd),
+            activate_contact_sensors=True,
+            rigid_props=G1_INSPIRE_CFG.spawn.rigid_props,
+            articulation_props=G1_INSPIRE_CFG.spawn.articulation_props,
+        )
+        logging.getLogger(__name__).info("Using the checkpoint's original converted robot USD: %s", _usd)
+    else:
+        logging.getLogger(__name__).warning(
+            "No original robot USD found at %s; the new URDF importer may change capsule/mimic geometry.", _usd
+        )

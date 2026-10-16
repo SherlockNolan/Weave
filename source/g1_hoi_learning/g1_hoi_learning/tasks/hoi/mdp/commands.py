@@ -35,6 +35,7 @@ from isaaclab.utils.math import (
 )
 
 from g1_hoi_learning.objects import ASSET_DIR
+from g1_hoi_learning.isaac_compat import as_torch, reference_quaternion
 
 
 # ----------------------------------------------------------------------- TensorClass
@@ -126,11 +127,11 @@ class MotionLoader:
             joint_pos        =_flat("joint_pos"),
             joint_vel        =_flat("joint_vel"),
             body_pos_w       =_flat("body_pos_w"),
-            body_quat_w      =_flat("body_quat_w"),
+            body_quat_w      =reference_quaternion(_flat("body_quat_w")),
             body_lin_vel_w   =_flat("body_lin_vel_w"),
             body_ang_vel_w   =_flat("body_ang_vel_w"),
             object_pos_w     =_flat("object_pos_w"),
-            object_quat_w    =_flat("object_quat_w"),
+            object_quat_w    =reference_quaternion(_flat("object_quat_w")),
             object_lin_vel_w =_flat("object_lin_vel_w"),
             object_ang_vel_w =_flat("object_ang_vel_w"),
             contact_label    =_flat("contact_label"),
@@ -353,27 +354,27 @@ class MotionCommand(CommandTerm):
 
     @property
     def robot_joint_pos(self) -> torch.Tensor:
-        return self.robot.data.joint_pos
+        return as_torch(self.robot.data.joint_pos)
 
     @property
     def robot_joint_vel(self) -> torch.Tensor:
-        return self.robot.data.joint_vel
+        return as_torch(self.robot.data.joint_vel)
 
     @property
     def robot_body_pos_w(self) -> torch.Tensor:
-        return self.robot.data.body_pos_w
+        return as_torch(self.robot.data.body_pos_w)
 
     @property
     def robot_body_quat_w(self) -> torch.Tensor:
-        return self.robot.data.body_quat_w
+        return as_torch(self.robot.data.body_quat_w)
 
     @property
     def robot_body_lin_vel_w(self) -> torch.Tensor:
-        return self.robot.data.body_lin_vel_w
+        return as_torch(self.robot.data.body_lin_vel_w)
 
     @property
     def robot_body_ang_vel_w(self) -> torch.Tensor:
-        return self.robot.data.body_ang_vel_w
+        return as_torch(self.robot.data.body_ang_vel_w)
 
     @property
     def robot_anchor_pos_w(self) -> torch.Tensor:
@@ -395,19 +396,19 @@ class MotionCommand(CommandTerm):
 
     @property
     def obj_pos_w(self) -> torch.Tensor:
-        return self.object.data.root_pos_w
+        return as_torch(self.object.data.root_pos_w)
 
     @property
     def obj_quat_w(self) -> torch.Tensor:
-        return self.object.data.root_quat_w
+        return as_torch(self.object.data.root_quat_w)
 
     @property
     def obj_lin_vel_w(self) -> torch.Tensor:
-        return self.object.data.root_lin_vel_w
+        return as_torch(self.object.data.root_lin_vel_w)
 
     @property
     def obj_ang_vel_w(self) -> torch.Tensor:
-        return self.object.data.root_ang_vel_w
+        return as_torch(self.object.data.root_ang_vel_w)
 
     # ------------------------------------------------------------------- CommandTerm interface
 
@@ -431,6 +432,9 @@ class MotionCommand(CommandTerm):
         self.metrics["error_object_rot"] = quat_error_magnitude(self.ref_obj_quat_w, self.obj_quat_w)
 
     def _resample_command(self, env_ids: Sequence[int]):
+        if env_ids is None or isinstance(env_ids, slice):
+            selection = slice(None) if env_ids is None else env_ids
+            env_ids = torch.arange(self.num_envs, device=self.device)[selection]
         if len(env_ids) == 0:
             return
         objects = self.env_object[env_ids]

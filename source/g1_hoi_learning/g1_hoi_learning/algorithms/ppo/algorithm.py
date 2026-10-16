@@ -21,6 +21,11 @@ class MuonPPO(PPO):
         weight_decay: float = 0.01,
         **kwargs: Any,
     ) -> None:
+        # Lab 3's config also serves RSL-RL 5. Keep the original RSL-RL 3
+        # Muon implementation and reject settings it cannot implement.
+        for name, expected in (("optimizer", "adam"), ("share_cnn_encoders", False), ("use_mixed_precision", False)):
+            if name in kwargs and kwargs.pop(name) != expected:
+                raise ValueError(f"{name} is not supported by Weave's checkpoint-compatible MuonPPO")
         super().__init__(policy, **kwargs)
         # Replace the Adam built by PPO.__init__ with Muon + AdamW.
         self.optimizer = MuonAdamWWrapper(

@@ -1,5 +1,5 @@
 // Fill in each video's path, failure type (title), and explanation (description).
-// Paths are relative to docs/index.html, e.g. "./media/failure-cases/case-1.mp4".
+// Paths are relative to project_page/index.html, e.g. "./media/failure-cases/case-1.mp4".
 // Leave src empty until the video exists to show a placeholder without a failed request.
 const failureCases = [
   { src: "./failure/anchor_pos.mp4", title: "Failure Case 1", description: "Root position deviation." },

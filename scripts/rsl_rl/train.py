@@ -37,7 +37,7 @@ parser.add_argument(
 # append RSL-RL cli arguments
 cli_args.add_rsl_rl_args(parser)
 # append AppLauncher cli args
-AppLauncher.add_app_launcher_args(parser)
+cli_args.add_app_launcher_args(parser)
 # default to headless mode for training; pass --no-headless or override with --headless False to enable GUI
 parser.set_defaults(headless=True)
 args_cli, hydra_args = parser.parse_known_args()
@@ -100,7 +100,7 @@ from isaaclab_rl.rsl_rl import RslRlBaseRunnerCfg, RslRlVecEnvWrapper
 
 import isaaclab_tasks  # noqa: F401
 from isaaclab_tasks.utils import get_checkpoint_path
-from isaaclab_tasks.utils.hydra import hydra_task_config
+from hydra_compat import hydra_task_config
 
 # import logger
 logger = logging.getLogger(__name__)
@@ -135,12 +135,14 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         )
 
     # multi-gpu training configuration
+    local_rank = getattr(app_launcher, "local_rank", int(os.environ.get("LOCAL_RANK", "0")))
+    global_rank = getattr(app_launcher, "global_rank", int(os.environ.get("RANK", "0")))
     if args_cli.distributed:
-        env_cfg.sim.device = f"cuda:{app_launcher.local_rank}"
-        agent_cfg.device = f"cuda:{app_launcher.local_rank}"
+        env_cfg.sim.device = f"cuda:{local_rank}"
+        agent_cfg.device = f"cuda:{local_rank}"
 
         # set seed to have diversity in different threads
-        seed = agent_cfg.seed + app_launcher.local_rank
+        seed = agent_cfg.seed + local_rank
         env_cfg.seed = seed
         agent_cfg.seed = seed
 
@@ -216,9 +218,19 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         print(f"[INFO]: Loading model checkpoint from: {resume_path}")
         # load previously trained model
         runner.load(resume_path)
+        # RSL-RL restores optimizer groups but not PPO's adaptive-LR scalar.
+        # Keep the first resumed update at the saved learning rate.
+        saved_lrs = {float(group["lr"]) for group in runner.alg.optimizer.param_groups}
+        if len(saved_lrs) == 1 and hasattr(runner.alg, "learning_rate"):
+            runner.alg.learning_rate = saved_lrs.pop()
+        print(
+            f"[RESUME] rank={global_rank} iteration={runner.current_learning_iteration} "
+            f"optimizer={type(runner.alg.optimizer).__name__} learning_rate={runner.alg.learning_rate}",
+            flush=True,
+        )
 
     # dump the configuration into log-directory
-    if not args_cli.distributed or app_launcher.global_rank == 0:
+    if not args_cli.distributed or global_rank == 0:
         dump_yaml(os.path.join(log_dir, "params", "env.yaml"), env_cfg)
         dump_yaml(os.path.join(log_dir, "params", "agent.yaml"), agent_cfg)
 

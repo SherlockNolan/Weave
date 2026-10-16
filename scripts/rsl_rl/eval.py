@@ -15,6 +15,16 @@ from isaaclab.app import AppLauncher
 
 # local imports
 import cli_args  # isort: skip
+from viser_options import (
+    TerminalScene,
+    add_viser_args,
+    configure_viser,
+    hold_viser,
+    prepare_viser_args,
+    run_and_close,
+    show_eval_result,
+    wait_for_viser,
+)
 
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Evaluation of an RSL-RL agent.")
@@ -31,12 +41,27 @@ parser.add_argument(
 parser.add_argument("--seed", type=int, default=None, help="Seed used for the environment")
 parser.add_argument("--real-time", action="store_true", default=False, help="Run in real-time, if possible.")
 parser.add_argument("--output_dir", type=str, default=None, help="Where to write metrics.json. Defaults to <run>/eval.")
+parser.add_argument("--video", action="store_true", help="Record the first episode of a single-clip evaluation.")
+parser.add_argument("--video_path", type=str, default=None, help="MP4 path; defaults to <output_dir>/episode.mp4.")
+parser.add_argument("--viser-tasks", action="store_true", help="Search and switch local reference tasks in the browser.")
+parser.add_argument(
+    "--viser-catalog", choices=("all", "train", "test", "pickups"), default="all",
+    help="Reference catalog exposed by --viser-tasks (default: all train/test clips).",
+)
+add_viser_args(parser)
 # append RSL-RL cli arguments
 cli_args.add_rsl_rl_args(parser)
 # append AppLauncher cli args
-AppLauncher.add_app_launcher_args(parser)
+cli_args.add_app_launcher_args(parser)
 # parse the arguments
 args_cli, hydra_args = parser.parse_known_args()
+prepare_viser_args(args_cli, parser)
+if args_cli.viser_tasks and (not args_cli.viser or args_cli.num_envs not in (None, 1)):
+    parser.error("--viser-tasks requires --viser and a single environment (--num_envs 1)")
+if args_cli.video:
+    args_cli.enable_cameras = True
+if args_cli.video_path and not args_cli.video:
+    parser.error("--video_path requires --video")
 
 # clear out sys.argv for Hydra
 sys.argv = [sys.argv[0]] + hydra_args
@@ -65,7 +90,7 @@ from isaaclab_rl.rsl_rl import RslRlBaseRunnerCfg, RslRlVecEnvWrapper
 
 import isaaclab_tasks  # noqa: F401
 from isaaclab_tasks.utils import get_checkpoint_path
-from isaaclab_tasks.utils.hydra import hydra_task_config
+from hydra_compat import hydra_task_config
 
 import g1_hoi_learning.tasks  # noqa: F401
 from g1_hoi_learning.tasks.hoi.mdp.commands import MotionCommand
@@ -195,11 +220,15 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     agent_cfg = cli_args.update_rsl_rl_cfg(agent_cfg, args_cli)
     env_cfg.seed = agent_cfg.seed
     env_cfg.sim.device = args_cli.device if args_cli.device is not None else env_cfg.sim.device
+    if args_cli.device is not None:
+        agent_cfg.device = args_cli.device
 
     env_cfg.commands.motion.eval_mode = True
     env_cfg.terminations.clip_end = DoneTerm(func=motion_clip_end, params={"command_name": "motion"}, time_out=True)
     num_clips = read_motion_num_clips(env_cfg.commands.motion.motion_files)
     env_cfg.scene.num_envs = args_cli.num_envs if args_cli.num_envs is not None else num_clips
+    if args_cli.video and (num_clips != 1 or env_cfg.scene.num_envs != 1):
+        raise ValueError("--video requires a single-clip motion file and --num_envs 1")
     print(f"[INFO] Clip-wise eval: {num_clips} clip(s) -> {env_cfg.scene.num_envs} env(s)")
 
     log_root_path = os.path.abspath(os.path.join("logs", "rsl_rl", agent_cfg.experiment_name))
@@ -209,8 +238,21 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
     log_dir = os.path.dirname(resume_path)
     env_cfg.log_dir = log_dir
+    configure_viser(env_cfg, args_cli)
 
-    env = gym.make(args_cli.task, cfg=env_cfg)
+    if args_cli.viser_tasks:
+        from viser_tasks import run_task_browser
+
+        run_task_browser(env_cfg, agent_cfg, args_cli, simulation_app, resume_path, ClipEvaluator)
+        return
+
+    if args_cli.video:
+        # Same-seed concurrent URDF conversions can choose the same temporary
+        # directory. Keep each recording's converted asset in its own folder.
+        video_output = args_cli.output_dir or os.path.join(log_dir, "eval")
+        env_cfg.scene.robot.spawn.usd_dir = os.path.abspath(os.path.join(video_output, "robot_usd"))
+
+    env = gym.make(args_cli.task, cfg=env_cfg, render_mode="rgb_array" if args_cli.video else None)
     if isinstance(env.unwrapped, DirectMARLEnv):
         env = multi_agent_to_single_agent(env)
     env = RslRlVecEnvWrapper(env, clip_actions=agent_cfg.clip_actions)
@@ -227,6 +269,18 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     obs, _ = env.reset()
     policy_nn.reset()
     evaluator = ClipEvaluator(env, read_motion_clip_names(env_cfg.commands.motion.motion_files))
+    terminal_scene = TerminalScene(env.unwrapped) if args_cli.viser else None
+    wait_for_viser(env.unwrapped, args_cli, simulation_app)
+    output_dir = args_cli.output_dir or os.path.join(log_dir, "eval")
+    video = None
+    if args_cli.video:
+        from episode_video import FirstEpisodeVideo, warm_up_renderer
+
+        # Warm up RTX without advancing the reference or physics state.
+        warm_up_renderer(env.unwrapped)
+        video = FirstEpisodeVideo(
+            env.unwrapped, args_cli.video_path or os.path.join(output_dir, "episode.mp4"), 1.0 / dt
+        )
 
     pbar = tqdm(range(evaluator.max_steps), desc="eval", unit="step", dynamic_ncols=True)
     for _ in pbar:
@@ -234,6 +288,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             print("[WARN] Simulation app closed before every clip finished; results are partial.")
             break
         start_time = time.time()
+        if video is not None:
+            video.capture()
         with torch.inference_mode():
             evaluator.collect()
             actions = policy(obs)
@@ -254,8 +310,11 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     res = evaluator.results()
     print_report(res)
+    if video is not None:
+        video.close()
+        res["video"] = {"path": str(video.path), "frames": video.frames, "fps": 1.0 / dt,
+                        "terminal_pose_before_reset": video.finished}
 
-    output_dir = args_cli.output_dir or os.path.join(log_dir, "eval")
     os.makedirs(output_dir, exist_ok=True)
     out_file = os.path.join(output_dir, "metrics.json")
     res["checkpoint"] = resume_path
@@ -264,9 +323,12 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         json.dump(res, f, indent=2)
     print(f"[INFO] Wrote {out_file}")
 
+    if terminal_scene is not None:
+        terminal_scene.restore()
+    show_eval_result(env.unwrapped, args_cli, res)
+    hold_viser(env.unwrapped, args_cli, simulation_app)
     env.close()
 
 
 if __name__ == "__main__":
-    main()
-    simulation_app.close()
+    run_and_close(main, simulation_app)

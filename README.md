@@ -3,6 +3,17 @@
        alt="WEAVE: Learning Whole-Body Dexterous Loco-Manipulation from Human–Object Interactions" />
 </p>
 
+## Project website
+
+The static project website, interactive rollout demo, videos and paper PDF are in
+[`project_page/`](project_page/index.html). To preview it locally, run from the repository root:
+
+```bash
+python -m http.server 8000 --bind 127.0.0.1 --directory project_page
+```
+
+Then open <http://localhost:8000>.
+
 ## 🔧 Installation
 
 1. Create a workspace directory — everything (Isaac Sim, IsaacLab, the venv, this repo) is installed side by side inside it, so pick a disk with **~30 GB** free:

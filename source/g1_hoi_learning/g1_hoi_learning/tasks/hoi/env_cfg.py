@@ -12,7 +12,10 @@ from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.scene import InteractiveSceneCfg
 from isaaclab.sensors import ContactSensorCfg
 from isaaclab.utils import configclass
-from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
+try:
+    from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
+except ImportError:
+    from isaaclab.utils.noise import UniformNoiseCfg as Unoise
 
 from . import mdp
 from .mdp.commands import MotionCommandCfg
@@ -466,4 +469,11 @@ class G1HoiLearningEnvCfg(ManagerBasedRLEnvCfg):
         self.viewer.asset_name = "robot"
         self.sim.dt = 1 / 200
         self.sim.render_interval = self.decimation
-        self.sim.physx.gpu_max_rigid_patch_count = 16 * 2**16
+        if hasattr(self.sim, "physx"):
+            self.sim.physx.gpu_max_rigid_patch_count = 16 * 2**16
+        else:
+            # Isaac Lab 3 separates the physics backend from SimulationCfg.
+            from isaaclab_physx.physics import PhysxCfg
+
+            self.sim.physics = PhysxCfg(gpu_max_rigid_patch_count=16 * 2**16)
+            self.sim.use_newton_actuators = False

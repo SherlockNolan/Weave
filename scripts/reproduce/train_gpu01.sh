@@ -23,7 +23,7 @@ for WEAVE_GPU_INDEX in 0 1; do
     WEAVE_GPU_UUIDS+=("$WEAVE_GPU_UUID")
 done
 
-source scripts/reproduce/activate.sh
+source "${WEAVE_TRAIN_ACTIVATION:-scripts/reproduce/activate.sh}"
 export CUDA_VISIBLE_DEVICES="${WEAVE_GPU_UUIDS[0]},${WEAVE_GPU_UUIDS[1]}"
 export CUDA_DEVICE_ORDER=PCI_BUS_ID
 export TZ=Asia/Shanghai
@@ -58,14 +58,16 @@ nvidia-smi --query-gpu=index,uuid,memory.used,memory.total --format=csv,noheader
 # settings apply to this launcher and its children, not to existing jobs.
 WEAVE_CPU_LIST="$(python -I -c 'import os; print(",".join(map(str, sorted(os.sched_getaffinity(0))[-16:])))')"
 export WEAVE_CPU_LIST
-python -I - <<'PY'
-import json, os
+python -I - "$@" <<'PY'
+import json, os, sys
 from pathlib import Path
 root = Path.cwd()
 report = {
     "started_at": os.environ["WEAVE_RUN_TIMESTAMP"], "timezone": "Asia/Shanghai",
     "gpus": [0, 1], "cuda_visible_devices": os.environ["CUDA_VISIBLE_DEVICES"],
     "world_size": 2, "config": os.environ["WEAVE_TRAIN_CONFIG"],
+    "activation": os.environ.get("WEAVE_TRAIN_ACTIVATION", "scripts/reproduce/activate.sh"),
+    "extra_args": sys.argv[1:],
     "task": os.environ["WEAVE_TRAIN_TASK"],
     "envs_per_gpu": int(os.environ["WEAVE_TRAIN_ENVS_PER_GPU"]),
     "total_envs": 2 * int(os.environ["WEAVE_TRAIN_ENVS_PER_GPU"]),

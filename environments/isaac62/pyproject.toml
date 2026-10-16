@@ -1,0 +1,134 @@
+[project]
+name = "weave-isaac62"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "gymnasium>=1.2.0",
+  "prettytable>=3.3.0",
+  "hidapi>=0.14.0",
+  "lazy-loader>=0.4",
+  "omniverseclient==2.74.0",
+  "onnxruntime-gpu==1.26.0",
+  "triton==3.6.0",
+  "llvmlite==0.46.0",
+  "isaacsim-extscache-physics==6.2.0.0",
+  "isaacsim-utils==6.2.0.0",
+  "isaacsim-ros2==6.2.0.0",
+  "isaacsim-robot-motion==6.2.0.0",
+  "isaacsim-replicator==6.2.0.0",
+  "isaacsim-extscache-kit-sdk==6.2.0.0",
+  "isaacsim-extscache-kit==6.2.0.0",
+  "isaaclab",
+  "isaaclab-assets",
+  "isaaclab-contrib",
+  "isaaclab-newton",
+  "isaaclab-ov",
+  "isaaclab-physx",
+  "isaaclab-rl",
+  "isaaclab-tasks",
+  "isaaclab-visualizers",
+  "g1-hoi-learning",
+  "isaacsim[all,extscache]==6.2.0.0",
+  "rsl-rl-lib==3.1.2",
+  "viser==1.1.1",
+  "opencv-python-headless-noffmpeg==4.14.0.94rc3",
+  "torch==2.11.0+cu128",
+  "torchvision==0.26.0+cu128",
+  "torchaudio==2.11.0+cu128",
+  "numpy==2.3.1",
+  "warp-lang==1.17.0",
+  "newton[sim]==1.6.1",
+  "usd-exchange==3.0.1",
+  "pyglet>=2.1.6,<3",
+  "trimesh>=4.6.8",
+  "scipy",
+  "coacd",
+  "fast-simplification",
+  "meshio",
+  "alphashape",
+  "pycollada",
+  "onnx>=1.18",
+  "tensorboard",
+  "numba",
+  "hydra-core",
+  "h5py",
+  "psutil",
+  "rich",
+  "tqdm",
+  "packaging",
+  "tensordict",
+  "toml",
+  "gitpython",
+  "einops",
+  "matplotlib",
+  "pillow>=12.3.0",
+  "wheel",
+  "pip",
+  "setuptools<82"
+]
+
+[tool.uv]
+package = false
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
+index-strategy = "unsafe-first-match"
+build-constraint-dependencies = ["setuptools<82"]
+prerelease = "allow"
+override-dependencies = [
+  "numpy==2.3.1",
+  "mujoco~=3.12.0",
+  "mujoco-warp~=3.12.0",
+  "newton[sim]==1.6.1",
+  "newton-usd-schemas>=0.5.0",
+  "usd-exchange==3.0.1",
+  "usd-optimize~=1.3.1",
+  # Match Isaac Lab 3's upstream overrides of Isaac Sim's older exact pins.
+  "fsspec>=2026.6.0",
+  "packaging==26.0",
+  "urllib3>=2.8.0"
+]
+
+[tool.uv.sources]
+onnxruntime-gpu = { path = "wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl" }
+triton = { path = "wheels/triton-3.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl" }
+llvmlite = { path = "wheels/llvmlite-0.46.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl" }
+isaacsim-extscache-physics = { path = "wheels/isaacsim_extscache_physics-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl" }
+isaacsim-utils = { path = "wheels/isaacsim_utils-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl" }
+isaacsim-ros2 = { path = "wheels/isaacsim_ros2-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl" }
+isaacsim-robot-motion = { path = "wheels/isaacsim_robot_motion-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl" }
+isaacsim-replicator = { path = "wheels/isaacsim_replicator-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl" }
+warp-lang = { path = "wheels/warp_lang-1.17.0-py3-none-manylinux_2_28_x86_64.whl" }
+isaacsim-extscache-kit-sdk = { path = "wheels/isaacsim_extscache_kit_sdk-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl" }
+isaacsim-extscache-kit = { path = "wheels/isaacsim_extscache_kit-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl" }
+isaaclab = { path = "../../../IsaacLab-3.0-latest/source/isaaclab", editable = true }
+isaaclab-assets = { path = "../../../IsaacLab-3.0-latest/source/isaaclab_assets", editable = true }
+isaaclab-contrib = { path = "../../../IsaacLab-3.0-latest/source/isaaclab_contrib", editable = true }
+isaaclab-newton = { path = "../../../IsaacLab-3.0-latest/source/isaaclab_newton", editable = true }
+isaaclab-ov = { path = "../../../IsaacLab-3.0-latest/source/isaaclab_ov", editable = true }
+isaaclab-physx = { path = "../../../IsaacLab-3.0-latest/source/isaaclab_physx", editable = true }
+isaaclab-rl = { path = "../../../IsaacLab-3.0-latest/source/isaaclab_rl", editable = true }
+isaaclab-tasks = { path = "../../../IsaacLab-3.0-latest/source/isaaclab_tasks", editable = true }
+isaaclab-visualizers = { path = "../../../IsaacLab-3.0-latest/source/isaaclab_visualizers", editable = true }
+g1-hoi-learning = { path = "../../source/g1_hoi_learning", editable = true }
+torch = { path = "wheels/torch-2.11.0+cu128-cp312-cp312-manylinux_2_28_x86_64.whl" }
+torchvision = { index = "pytorch-cu128" }
+torchaudio = { index = "pytorch-cu128" }
+opencv-python-headless-noffmpeg = { index = "nvidia" }
+
+[[tool.uv.index]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple/"
+default = true
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://mirror.sjtu.edu.cn/pytorch-wheels/cu128/"
+explicit = true
+
+[[tool.uv.index]]
+name = "nvidia"
+url = "https://pypi.nvidia.cn"
+explicit = true

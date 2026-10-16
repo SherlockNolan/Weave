@@ -1,5 +1,23 @@
 # Weave 复现准备与监控
 
+## Isaac Sim 6.2 与 Viser（2026-10-15）
+
+新增独立 uv 环境，固定 Isaac Sim 6.2.0.0、Isaac Lab `release/3.0.0` 的提交 `7dd5688`、Python 3.12。
+`eval.py` 和 `play.py` 支持 `--viser`。安装、SSH 连接、四类拾取任务与验证记录见
+[新版环境 README](environments/isaac62/README.md)。
+
+```bash
+cd /mnt/data/ruofei/zhangyu/code/Weave
+source scripts/reproduce/activate_isaac62.sh
+python scripts/reproduce/viser_pickups.py --sequence sub1_tripod_075
+```
+
+本地使用 `ssh -N -L 8080:127.0.0.1:8080 <服务器SSH别名>` 转发，打开 `http://localhost:8080`，
+点击 **开始 / 重播** 执行。侧栏可搜索全部 9,474 个参考片段，选择后直接切换任务。
+默认加载最近保存的统一策略 checkpoint，切换任务共享同一份权重。
+评估结束保留终止姿态与指标，按 `Ctrl+C` 退出。
+旧的根目录 `.venv` 与 Isaac Sim 5.1 环境继续保留，以下历史记录中的版本和命令仍指旧环境。
+
 ## 当前 PAI 机器的 uv 项目环境（2026-10-13）
 
 仓库根 `pyproject.toml` 现已包含复现依赖，`uv.lock` 固定完整依赖树。
@@ -148,10 +166,44 @@ python -I scripts/reproduce/pickup_then_full.py \
 启动前检查已完成：双卡小规模专项训练、白椅子 checkpoint 加载与评估，
 以及三项队列测试（执行顺序、专项训练失败时停止、评估异常时停止）。
 试运行的低成功率只验证基础流程，不作为正式训练结果。
+专项训练现已完成，专项 checkpoint 为
+`logs/rsl_rl/g1_inspire_hoi/2026-10-13_17-42-07_pickups-specialist-dual/model_2999.pt`。
+全量训练已于 2026-10-13 20:01 自动从原 `model_300.pt` 接续。
 17:44 的正式启动检查确认已完成第 10 次迭代并保存 `model_0.pt`，
 两个 rank 的承托面碰撞分配和策略编译已确认，原有六个 GPU 任务的 PID、显存保持一致。
 检查证据见专项任务目录的 `verified-start.json`；当前迭代约 2.9–3.1 秒，
 据此估算专项训练约 2.5 小时，随后还需评估和全量训练初始化。
+
+### 无界面录制专项评估视频
+
+2026-10-14 已使用专项 `model_2999.pt` 为四条序列各录制一个参考变体的首次执行。
+输出位于 `outputs/pickup-videos/`：`overview.mp4` 为四宫格总览，
+四个以序列名命名的 MP4 为单独视频，说明文件为 `outputs/pickup-videos/README.md`，不提供 ZIP 包。
+视频为 50 fps 的仿真时间，字幕标明本次执行的进度、终止原因；终止姿态额外停留一秒。
+各任务的 `metrics.json` 与 `manifest.json` 保存本次录像结果，
+不能替代先前的 12 片段整组评估。白椅子仍使用拟合承托面。
+
+录像接口新增在 `scripts/rsl_rl/eval.py`，使用 `--video`，可用 `--video_path` 指定 MP4 路径；
+要求单环境和单参考片段。它在自动重置前保存最后姿态，并检查黑帧。
+Isaac Sim 5.1 的 headless 配置关闭了 Replicator 调度，
+录像过程显式初始化调度并逐帧请求新的图像，避免黑屏或重复初始姿态。
+只有录像进程启用这些设置，原训练进程不改变。
+
+通常应在 GPU 0 空闲时运行：
+
+```bash
+source scripts/reproduce/activate.sh
+python scripts/reproduce/record_pickups.py
+python scripts/reproduce/compose_pickup_videos.py outputs/pickup-videos
+```
+
+本次录像使用 GPU 0 的剩余显存，单环境顺序执行，CPU 限制四核、nice 19。
+`record_pickups.py --share-weave-gpu0` 仅用于本机已确认运行的双 rank Weave 任务；
+检查到其他额外 GPU 0 计算进程时拒绝启动。
+默认模式使用 GPU 0 文件锁并拒绝共享占用中的 GPU。
+运行后检查视频能正常解码、有非黑画面和动作变化，录像 GPU 已释放，
+全部原有 GPU 任务的 PID 与显存占用保持一致，全量训练继续运行。
+验证结果在 `outputs/pickup-videos/verification.json`。
 
 准备基于当前 Weave 提交 `d839eb298358b71aedd0407c7ba9bbb05c14e05e`。
 本文记录配置和操作方式；**是否安装成功，以后台任务状态和日志为准**。

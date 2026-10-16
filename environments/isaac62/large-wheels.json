@@ -1,0 +1,91 @@
+[
+  {
+    "package": "torch",
+    "version": "2.11.0+cu128",
+    "filename": "torch-2.11.0+cu128-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "url": "https://download.pytorch.org/whl/cu128/torch-2.11.0%2Bcu128-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "sha256": "d252cf975fb18c94a85336323ad425f473df56dab35a44b00399bd70c7a3b997",
+    "workers": 48,
+    "chunk_mib": 1
+  },
+  {
+    "package": "isaacsim-extscache-kit",
+    "version": "6.2.0.0",
+    "filename": "isaacsim_extscache_kit-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "url": "https://pypi.nvidia.cn/isaacsim-extscache-kit/isaacsim_extscache_kit-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "sha256": "8f14f7673aeb073d7917494c7b7ae3a2ca0b83ea70e478b46390a352ccbdc88c",
+    "workers": 96
+  },
+  {
+    "package": "isaacsim-extscache-kit-sdk",
+    "version": "6.2.0.0",
+    "filename": "isaacsim_extscache_kit_sdk-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "url": "https://pypi.nvidia.cn/isaacsim-extscache-kit-sdk/isaacsim_extscache_kit_sdk-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "sha256": "cf77f38f5cd29e1413696d7fd5eeec07559233234db6db32d7ca93efc4092298",
+    "workers": 48
+  },
+  {
+    "package": "warp-lang",
+    "version": "1.17.0",
+    "filename": "warp_lang-1.17.0-py3-none-manylinux_2_28_x86_64.whl",
+    "url": "https://mirrors.aliyun.com/pypi/packages/a6/a1/e11aa6898e8bbb6910e89fe31a3338fb2566f038912010875c072e6dafd1/warp_lang-1.17.0-py3-none-manylinux_2_28_x86_64.whl",
+    "sha256": "47cd93636828dd16e55eeb4e77a0e3547b5fb0f383000a3d228629df68f28fd8"
+  },
+  {
+    "package": "isaacsim-replicator",
+    "version": "6.2.0.0",
+    "filename": "isaacsim_replicator-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "url": "https://mirrors.aliyun.com/pypi/packages/dd/42/b6991ecc33cfd8ce56c2e9cd0747851e55494d82663086fe054327c758e7/isaacsim_replicator-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "sha256": "3294365f92a2174747ba5e0bd46914bb24211f3d22dbff0f66d3437faf54c1a1"
+  },
+  {
+    "package": "isaacsim-robot-motion",
+    "version": "6.2.0.0",
+    "filename": "isaacsim_robot_motion-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "url": "https://mirrors.aliyun.com/pypi/packages/14/59/94aa370ad6fd6d8aef9cd73f77bf5c11fa3396614cca750131f063b711b1/isaacsim_robot_motion-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "sha256": "a8a449caa18ebae7331f074428f83d6aefa1c905f03283d0cfc32f4f853fc021"
+  },
+  {
+    "package": "isaacsim-ros2",
+    "version": "6.2.0.0",
+    "filename": "isaacsim_ros2-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "url": "https://mirrors.aliyun.com/pypi/packages/2f/70/ee1a79b4e7d0a23116d642664eacc258fe1f7ad05664029bf7c1654c8774/isaacsim_ros2-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "sha256": "34910c880e452528f5771e0f31673b08703e522f2d09cdb173216be7cd89844f"
+  },
+  {
+    "package": "isaacsim-utils",
+    "version": "6.2.0.0",
+    "filename": "isaacsim_utils-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "url": "https://mirrors.aliyun.com/pypi/packages/21/ad/886bd058619171c6f7c307a4f1f98db737b44df12c18b44b1cac11dbe129/isaacsim_utils-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "sha256": "e02a390491576376fbb1301337014fffcad1b538b4be8c3d369b33cee6b9b52b"
+  },
+  {
+    "package": "isaacsim-extscache-physics",
+    "version": "6.2.0.0",
+    "filename": "isaacsim_extscache_physics-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "url": "https://mirrors.aliyun.com/pypi/packages/1b/ff/ed01b9f1d2a011e75a7de176647b98e2f393c18b635654d26b127f9641b2/isaacsim_extscache_physics-6.2.0.0-cp312-none-manylinux_2_35_x86_64.whl",
+    "sha256": "4754ce429f61c9ac99b9bddfa272efe7abae575f3a3701c5ce1f6fb88b6beee3"
+  },
+  {
+    "package": "llvmlite",
+    "version": "0.46.0",
+    "filename": "llvmlite-0.46.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "url": "https://mirrors.aliyun.com/pypi/packages/aa/85/4890a7c14b4fa54400945cb52ac3cd88545bbdb973c440f98ca41591cdc5/llvmlite-0.46.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "sha256": "3535bd2bb6a2d7ae4012681ac228e5132cdb75fefb1bcb24e33f2f3e0c865ed4"
+  },
+  {
+    "package": "triton",
+    "version": "3.6.0",
+    "filename": "triton-3.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "url": "https://mirrors.aliyun.com/pypi/packages/ab/a8/cdf8b3e4c98132f965f88c2313a4b493266832ad47fb52f23d14d4f86bb5/triton-3.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "sha256": "74caf5e34b66d9f3a429af689c1c7128daba1d8208df60e81106b115c00d6fca"
+  },
+  {
+    "package": "onnxruntime-gpu",
+    "version": "1.26.0",
+    "filename": "onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "url": "https://mirrors.aliyun.com/pypi/packages/94/fd/59bee7cffaa435da44fefdeb63e29c61de4dbfa4b279852f59cd02c042ae/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "sha256": "3c01119ed4d9449d60367fa8ccffcd02bd3fe736754284e4b198d131f54edad6",
+    "workers": 32
+  }
+]

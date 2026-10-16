@@ -71,13 +71,21 @@ _build
 **/outputs/*
 **/figs/*
 
-# Documentation (publish the root GitHub Pages site)
+# Documentation
 **/docs/*
 !/docs/*
-!/docs/demo/vendor/three/build/
+
+# Project website includes the vendored Three.js browser build.
+!/project_page/demo/vendor/three/build/
 
 # data
 data/
+
+# Runtime-only driver library links for the isolated Isaac Sim environment.
+/environments/isaac62/driver-libs/
+**/.venv
+**/.venv.cpfs-incomplete/
+/environments/isaac62/wheels/
 
 # model file
 *.pt

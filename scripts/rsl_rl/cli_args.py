@@ -13,6 +13,16 @@ if TYPE_CHECKING:
     from isaaclab_rl.rsl_rl import RslRlBaseRunnerCfg
 
 
+def add_app_launcher_args(parser: argparse.ArgumentParser):
+    """Retain the repository's headless CLI with the Lab 3 launcher."""
+    from isaaclab.app import AppLauncher
+
+    AppLauncher.add_app_launcher_args(parser)
+    for flag in ("--headless", "--enable_cameras"):
+        if flag not in parser._option_string_actions:
+            parser.add_argument(flag, action="store_true", default=False)
+
+
 def add_rsl_rl_args(parser: argparse.ArgumentParser):
     """Add RSL-RL arguments to the parser.
 
