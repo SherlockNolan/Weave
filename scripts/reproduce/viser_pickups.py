@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Open one requested pickup reference with the unified policy in Viser."""
+"""Open policy evaluation, or recorded dataset replay with --dataset, in Viser."""
 
 import argparse
 import json
@@ -20,6 +20,10 @@ def main():
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--viser-port", type=int, default=8080)
     parser.add_argument("--viser-host", default="127.0.0.1")
+    parser.add_argument("--dataset", action="store_true", help="Replay recorded dataset trajectories on CPU.")
+    parser.add_argument("--dataset-hand", choices=("inspire", "revo2", "both"), default="both")
+    parser.add_argument("--dataset-split", choices=("all", "train", "test"), default="all")
+    parser.add_argument("--dataset-method", choices=("position", "vector"), default="position")
     parser.add_argument("--viser-no-wait", action="store_true")
     parser.add_argument("--viser-exit", action="store_true")
     parser.add_argument("--single-task", action="store_true", help="Disable the searchable task browser.")
@@ -31,6 +35,24 @@ def main():
     )
     args = parser.parse_args()
     os.chdir(REPO)
+    if args.dataset:
+        command = [
+            sys.executable,
+            "-u",
+            str(REPO / "scripts/reproduce/viser_dataset.py"),
+            "--host",
+            args.viser_host,
+            "--port",
+            str(args.viser_port),
+            "--hand",
+            args.dataset_hand,
+            "--split",
+            args.dataset_split,
+            "--method",
+            args.dataset_method,
+        ]
+        # All clips remain selectable in the browser, independent of the initial pickup.
+        os.execv(sys.executable, command)
     clips = json.loads((REPO / "data/pickups/manifest.json").read_text())["clips"]
     clips = sorted([clip for clip in clips if clip["sequence"] == args.sequence], key=lambda c: c["motion_name"])
     if not 0 <= args.variant < len(clips):

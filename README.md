@@ -138,6 +138,21 @@ python scripts/rsl_rl/eval.py --task=G1-Inspire-HOI-v0 --headless \
 
 ## 🎬 Play
 
+### Recorded dataset replay in Viser
+
+Browse the recorded train/test trajectories with Inspire hands, Revo2 hands, or
+both side by side. Use the isolated CPU environment described in the
+[dataset viewer guide](scripts/reproduce/VISER_DATASET.zh-CN.md), then run:
+
+```bash
+python scripts/reproduce/viser_dataset.py --port 8083
+```
+
+The viewer lists all local original motions and the available Revo2 conversions.
+It replays reference poses on CPU; policy evaluation remains a separate entry.
+
+### Policy playback
+
 `play.yaml` inherits from `train.yaml` and overrides `num_envs=1`, turning off RSI / reset
 perturbations for deterministic playback.
 
