@@ -1,5 +1,10 @@
 # Isaac Sim 6.2 与 Viser 可视化
 
+2026-10-19 已修复训练兼容问题；后续训练请先阅读 [训练修复说明](../../scripts/reproduce/TRAINING_FIXES.zh-CN.md)。
+旧 `model_64500.pt` / `model_99999.pt` 的低分属于问题训练记录，修复代码不会自动修复已有权重。
+作者在 issue #2 确认训练使用 8 × 16,384 环境；新的 [论文训练 recipe](../../scripts/reproduce/PAPER_TRAINING.zh-CN.md)
+默认从头训练并使用上游指定的 Isaac Sim 5.1。本目录的 6.2 / Viser 环境继续保留。
+
 本目录是 Weave 的新版 uv 项目。旧的根目录 `.venv`、Isaac Sim 5.1 和 Isaac Lab 2.3 环境继续保留。
 此次升级未安装系统驱动、重启机器或停止其他训练进程。
 
@@ -145,23 +150,27 @@ python scripts/rsl_rl/eval.py --viser --headless \
 `play.py` 使用相同可视化参数并持续执行；有限片段指标请使用 `eval.py`。
 `--viser` 与 `--video` 分开运行。旧版环境仍可通过原来的 `activate.sh` 执行原视频流程。
 
-## 新版双卡断点续训
+## 新版双卡缩小实验的断点续训
 
-从之前的统一策略 `model_64500.pt` 继续，在 GPU 0、1 上联合训练至原定约 100,000 次迭代：
+默认从首次受影响断点恢复前保存的统一策略 `model_300.pt` 继续，
+在 GPU 0、1 上联合训练至原定约 100,000 次迭代：
 
 ```bash
 bash scripts/reproduce/resume_isaac62_gpu01.sh
 ```
 
 该脚本要求两张卡空闲，不会停止已有任务；需要先关闭占用 GPU 的可视化服务。
-每卡 2,048 个环境，共 4,096 个，训练数据仍为九类物体的完整训练集。
+每卡 16,384 个环境，共 32,768 个，仅为作者确认规模的 1/4，训练数据仍为九类物体的完整训练集。
+旧 `model_300.pt` 来自总计 4,096 环境的历史训练，该续训路径不等同于论文 recipe。
 保留原 PPO、Muon / AdamW、SimBa 和 `torch.compile` 设置，恢复权重、归一化统计及优化器状态。
 PPO 的自适应学习率标量同步为 checkpoint 中的优化器学习率。
 同时修复优化器包装器加载后参数组引用失效的问题，确保自适应学习率实际更新 Muon / AdamW；
 CPU 状态恢复检查记录在 `logs/preparation/isaac62-optimizer-resume-check.json`。
 由于 Isaac Sim 已从 5.1 升级至 6.2，此阶段属于仿真版本改变后的继续训练。
 
-默认 checkpoint 固定为 `model_64500.pt`；后续再次恢复时应明确传入新的 checkpoint：
+默认 checkpoint 为 `2026-10-13_17-04-51_paper-reference-dual/model_300.pt`。
+此前 `64500` / `99999` 的训练受到已核查问题影响，不作为修复后训练的默认起点。
+后续恢复修复后产生的 checkpoint 时应明确传入路径：
 
 ```bash
 bash scripts/reproduce/resume_isaac62_gpu01.sh /绝对路径/model_最新迭代.pt
@@ -169,7 +178,7 @@ bash scripts/reproduce/resume_isaac62_gpu01.sh /绝对路径/model_最新迭代.
 
 最新启动目录记录在 `logs/preparation/isaac62-resume-job.path`；该目录包含 `launch.json`、
 `train.log`、各 rank 日志和 `status`。模型与 TensorBoard 数据写入独立的
-`logs/rsl_rl/g1_inspire_hoi/<启动时间>_paper-reference-isaac62-resumed/`。
+`logs/rsl_rl/g1_inspire_hoi/<启动时间>_reference-scaled-dual-isaac62-corrected/`。
 新目录不覆盖旧 checkpoint，每 100 次迭代保存一次。
 
 TensorBoard：

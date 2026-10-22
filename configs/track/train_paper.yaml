@@ -1,0 +1,19 @@
+# @package _global_
+# Author confirmation: https://github.com/xiaohu-art/Weave/issues/2
+# Launch with 8 DDP ranks, 16384 environments per rank (131072 total).
+defaults:
+  - train_reference
+  - _self_
+
+env:
+  scene:
+    num_envs: 16384
+
+agent:
+  resume: false
+  num_steps_per_env: 32
+  max_iterations: 100000
+  save_interval: 100
+  algorithm:
+    num_learning_epochs: 5
+    num_mini_batches: 4

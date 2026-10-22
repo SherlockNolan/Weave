@@ -1,9 +1,10 @@
 # @package _global_
-# Two ranks each run 2048 environments, preserving the 4096-environment total.
+# Reduced two-rank variant: 2 x 16384 = 32768 environments (1/4 of author scale).
+# The full recipe is train_paper, launched on eight ranks.
 defaults:
   - train_reference
   - _self_
 
 env:
   scene:
-    num_envs: 2048
+    num_envs: 16384

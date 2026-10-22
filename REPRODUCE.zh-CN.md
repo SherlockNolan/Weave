@@ -1,5 +1,54 @@
 # Weave 复现准备与监控
 
+## 正式训练：每卡 10,240（2026-10-19 19:28）
+
+按用户选择，从头启动完整九物体 D_train 的统一策略训练，GPU 0、1 各 10,240 环境，总计 20,480，
+目标 100,000 次迭代，使用 Isaac Sim 5.1 和原 PPO / Muon / SimBa / torch.compile 配置。
+用户随后明确允许停止旧任务，已停止两个 RoboNaldo 训练及其自动接续调度器，旧 checkpoint 保留。
+因此本轮为两卡独占，显存条件与此前共用 GPU 的 smoke 不同。
+
+后台会话为 `weave-train-dual10240`，日志为 `logs/training/latest-dual/train.log`，
+实际任务目录记录在 `logs/preparation/dual10240-training-job.path`。
+启动验证和旧任务停止记录见 [正式训练记录](outputs/training-starts/2026-10-19/dual10240/README.md)。
+
+## 按作者 issue #2 更新训练 recipe（2026-10-19）
+
+作者确认使用 [8 × 16,384 = 131,072 个并行环境](https://github.com/xiaohu-art/Weave/issues/2)。
+此前双卡总计 4,096 的配置仅为其 1/32，不能称为论文训练规模。
+新增 `train_paper.yaml` 和 `scripts/reproduce/train_paper.sh`，默认从头训练完整九物体 D_train，
+保留公开 PPO / Muon / SimBa 参数及已完成的 bug 修复，默认使用上游安装脚本的 Isaac Sim 5.1 环境。
+详细参数、八卡启动、断点约束及双卡缩小版本见 [论文训练 recipe](scripts/reproduce/PAPER_TRAINING.zh-CN.md)。
+
+```bash
+bash scripts/reproduce/train_paper.sh --dry-run
+```
+
+上述命令仅打印计划。当前机器仅可见两张 GPU，不能运行完整八卡配置；recipe 修改阶段仅做静态检查。
+后续容量 smoke 已确认：**每卡 8,192 通过 5 个完整训练迭代、至少约 5 GiB 空闲；10,240 余量不足 1 GiB；
+12,288 和 16,384 均 OOM**。当前共享 GPU 推荐每卡 8,192，正式启动需显式覆盖环境数量，详见
+[容量测试报告](outputs/capacity-smoke/2026-10-19_18-58-49/README.md)及[启动说明](scripts/reproduce/PAPER_TRAINING.zh-CN.md#本机共享-gpu-的容量-smoke2026-10-19)。
+双卡脚本现为 2 × 16,384 = 32,768 环境，即作者规模的 1/4；以下历史训练记录的 4,096 数字仍指当时设置。
+
+## 训练问题修复（2026-10-19）
+
+已修复新版多物体克隆与参考动作错配、拾取支撑桌配对和接触力接口含义变化，
+并加固优化器断点恢复：PPO 自适应学习率直接更新实际 Muon / AdamW。
+每次创建环境都会核验所有物体的 USD 来源，发现错配会停止启动。
+修复说明、回归验证及后续训练命令见 [训练修复说明](scripts/reproduce/TRAINING_FIXES.zh-CN.md)。
+
+此前 `model_64500.pt` / `model_99999.pt` 的训练已受问题影响；修复代码不会自动恢复权重质量。
+旧双卡诊断恢复脚本默认使用首次受影响恢复前保存的 `model_300.pt`，运行名为 `reference-scaled-dual-isaac62-corrected`。
+该权重来自旧小规模训练，不作为新论文 recipe 的起点；论文启动器默认从头训练。
+本次只做修复和短验证，没有启动全量重训，原有训练任务保持运行。
+
+## 最终统一策略评估（2026-10-19）
+
+100,000 次迭代已经完成，最终权重为 `2026-10-15_19-21-47_paper-reference-isaac62-resumed/model_99999.pt`。
+这是修复前的问题训练记录，不能视为修复后策略的评估。
+已按用户要求在 GPU 1 与现有训练共享运行完整 train/test split 评估；此前的 CPU 诊断结果单独保留。
+目标、评估口径、软件版本差异、运行状态与复跑命令见
+[论文评估说明](scripts/reproduce/PAPER_EVAL.zh-CN.md)。
+
 ## Isaac Sim 6.2 与 Viser（2026-10-15）
 
 新增独立 uv 环境，固定 Isaac Sim 6.2.0.0、Isaac Lab `release/3.0.0` 的提交 `7dd5688`、Python 3.12。
@@ -72,17 +121,18 @@ NVIDIA 官方对 EGL Vulkan ICD 的说明见
 并将 CUDA 访问限制到 GPU 0、关闭多 GPU 渲染。
 文件锁只能协调使用该脚本启动的任务，GPU 检查不会预留设备；
 其他用户在检查后启动新任务仍需自行协调。
-完整训练可将上面命令中的 `smoke` 换为 `train_reference`；
+单卡完整训练集实验可将上面命令中的 `smoke` 换为 `train_reference`，但其并行规模仍小于论文；
+完整论文规模请使用文首的 `train_paper.sh`。
 此次两迭代检查只验证安装与运行流程，不代表论文性能。
 
-### GPU 0–1 双卡主实验
+### GPU 0–1 双卡历史实验
 
 2026-10-13 17:04（北京时间）启动完整训练参考集的统一策略训练，
 原会话为 `weave-reference-dual`，现已按用户要求停止，保留 `model_300.pt`。
 配置 `train_reference_dual` 继承作者训练参数，
 使用九种物体、7,869 个训练片段和 100,000 次迭代；
 每卡 2,048 个环境，双卡合计 4,096，保存间隔为 100 次迭代。
-这是论文中在训练参考集上训练统一策略的实验，后续仍需评估训练集和测试集。
+这是使用完整训练参考集的小规模统一策略实验，其并行规模仅为作者后来确认规模的 1/32。
 
 启动脚本为 `scripts/reproduce/train_gpu01.sh`，仅允许空闲的物理 GPU 0–1，
 通过 UUID 限制 CUDA 可见设备，每个 rank 使用一张卡，关闭多 GPU 渲染，
@@ -312,6 +362,8 @@ python3 scripts/reproduce/download_data.py --include-rollouts
 | `smoke` | 单物体、32 环境、2 次迭代，检查环境可运行 |
 | `train_local` | smallbox 训练集、256 环境、3,000 次迭代，用于本机单物体实验 |
 | `train_reference` | 九物体完整训练集，继承作者的其余训练参数 |
+| `train_reference_dual` | 双卡缩小实验，每卡 16,384，总计 32,768，仅为作者规模的 1/4 |
+| `train_paper` | 九物体完整训练集，8 × 16,384 环境；使用 `train_paper.sh` 启动并校验 |
 | `eval_reference` | 单物体测试配置，完整测试集需按物体分别运行 |
 
 本机显存 12 GB，低于 [Isaac Sim 5.1 官方列出的 16 GB 最低配置](https://docs.isaacsim.omniverse.nvidia.com/5.1.0/installation/requirements.html)。
@@ -331,7 +383,7 @@ python scripts/rsl_rl/train.py --task G1-Inspire-HOI-v0 \
   --headless --config-dir ./configs/track --config-name train_local
 ```
 
-完整训练集实验（需要足够显存）：
+单卡完整训练集实验（需要足够显存，非论文并行规模）：
 
 ```bash
 python scripts/rsl_rl/train.py --task G1-Inspire-HOI-v0 \

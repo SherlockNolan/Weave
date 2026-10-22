@@ -9,7 +9,13 @@ import isaaclab.sim as sim_utils
 from isaaclab.assets import RigidObjectCfg
 from isaaclab.envs import ManagerBasedRLEnv
 
+from g1_hoi_learning.isaac_compat import ISAACLAB3
 from g1_hoi_learning.objects.object_cfg import OBJECT_CFG_BY_NAME
+from g1_hoi_learning.scene_layout import (
+    paired_round_robin_clone_strategy,
+    round_robin_clone_strategy,
+    validate_object_assignments,
+)
 
 from . import agents
 
@@ -17,9 +23,8 @@ from . import agents
 def _make_env(cfg, **kwargs):
     """Resolve scene.object from motion_files' object_names.
 
-    Builds a MultiAssetSpawnerCfg(random_choice=False) so envs are assigned objects in round-robin
-    order: env i -> object (i % O), matching MotionCommand.env_object. Forces replicate_physics=False
-    (required by IsaacLab when spawning heterogeneous assets across envs).
+    Assign env i to object (i % O), matching MotionCommand.env_object. Lab 3 requires an
+    explicit clone strategy; random_choice=False alone no longer controls the assignment.
     """
     from .mdp.commands import MotionLoader
 
@@ -43,9 +48,29 @@ def _make_env(cfg, **kwargs):
         ),
     )
     cfg.scene.replicate_physics = False
+    if ISAACLAB3:
+        table = getattr(cfg.scene, "support_table", None)
+        paired = table is not None and isinstance(table.spawn, sim_utils.MultiAssetSpawnerCfg)
+        if paired and len(table.spawn.assets_cfg) != len(object_names):
+            raise ValueError("Support-table variants must match the reference object's variant order.")
+        cfg.scene.clone_cfg.clone_strategy = (
+            paired_round_robin_clone_strategy if paired else round_robin_clone_strategy
+        )
 
     print(f"[INFO]: Resolved scene.object across {len(object_names)} object(s): {object_names}")
-    return ManagerBasedRLEnv(cfg=cfg, **kwargs)
+    env = ManagerBasedRLEnv(cfg=cfg, **kwargs)
+    try:
+        command = env.command_manager.get_term("motion")
+        expected = [command.motion.object_names[i] for i in command.env_object.cpu().tolist()]
+        counts = validate_object_assignments(
+            sim_utils.get_current_stage(), expected,
+            {name: OBJECT_CFG_BY_NAME[name].spawn.usd_path for name in object_names},
+        )
+    except Exception:
+        env.close()
+        raise
+    print(f"[WEAVE] Verified all {env.num_envs} object/reference assignments: {counts}", flush=True)
+    return env
 
 
 def _make_pickup_env(cfg, **kwargs):
@@ -58,7 +83,9 @@ def _make_pickup_env(cfg, **kwargs):
     from pxr import Usd, UsdPhysics
 
     stage = sim_utils.get_current_stage()
-    for index, obj in enumerate(object_names[:cfg.scene.num_envs]):
+    command = env.command_manager.get_term("motion")
+    for index, object_id in enumerate(command.env_object.cpu().tolist()):
+        obj = command.motion.object_names[object_id]
         root = stage.GetPrimAtPath(f"/World/envs/env_{index}/SupportTable")
         collision_enabled = any(
             prim.HasAPI(UsdPhysics.CollisionAPI)

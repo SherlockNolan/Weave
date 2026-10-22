@@ -8,6 +8,8 @@ from isaaclab.managers import ManagerTermBase, RewardTermCfg, SceneEntityCfg
 from isaaclab.sensors import ContactSensor
 from isaaclab.utils.math import quat_apply_inverse, quat_error_magnitude
 
+from g1_hoi_learning.isaac_compat import net_normal_contact_forces, normal_contact_force_matrix
+
 from .commands import MotionCommand
 from .geometry import SampledSurfaceQuery
 
@@ -180,7 +182,7 @@ class contact_reward(ManagerTermBase):
         sensor = env.scene[sensor_name]
 
         ref_label = command.ref_contact_label[:, self.hand_idx]              # (num_envs, num_hand)
-        forces = sensor.data.force_matrix_w[:, 0, self.hand_idx, :]           # (num_envs, num_hand, 3)
+        forces = normal_contact_force_matrix(sensor)[:, 0, self.hand_idx, :]  # (num_envs, num_hand, 3)
         sim_strength = (forces.norm(dim=-1) / saturate_force).clamp(0, 1)     # (num_envs, num_hand)
 
         target = (ref_label > 0).float()
@@ -272,7 +274,7 @@ def feet_slide(
     """Penalize horizontal foot velocity while the foot is in contact with the ground.
     """
     contact_sensor: ContactSensor = env.scene.sensors[sensor_cfg.name]
-    forces = contact_sensor.data.net_forces_w_history[:, :, sensor_cfg.body_ids]     # (N, H, F, 3)
+    forces = net_normal_contact_forces(contact_sensor, history=True)[:, :, sensor_cfg.body_ids]  # (N, H, F, 3)
     in_contact = forces.norm(dim=-1).max(dim=1)[0] > force_threshold                  # (N, F)
 
     asset: Articulation = env.scene[asset_cfg.name]

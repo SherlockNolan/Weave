@@ -8,12 +8,21 @@
 """Launch Isaac Sim Simulator first."""
 
 import argparse
+import os
 import sys
 
 from isaaclab.app import AppLauncher
 
 # local imports
 import cli_args  # isort: skip
+from training_recipe import (  # isort: skip
+    PAPER_ENVS_PER_RANK,
+    PAPER_ITERATIONS,
+    PAPER_WORLD_SIZE,
+    make_training_recipe,
+    validate_paper_recipe,
+    validate_paper_resume,
+)
 
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Train an RL agent with RSL-RL.")
@@ -30,6 +39,9 @@ parser.add_argument("--max_iterations", type=int, default=None, help="RL Policy 
 parser.add_argument(
     "--distributed", action="store_true", default=False, help="Run training with multiple GPUs or nodes."
 )
+parser.add_argument(
+    "--paper_recipe", action="store_true", help="Require the author's 8 x 16384 environment training recipe."
+)
 parser.add_argument("--export_io_descriptors", action="store_true", default=False, help="Export IO descriptors.")
 parser.add_argument(
     "--ray-proc-id", "-rid", type=int, default=None, help="Automatically configured by Ray integration, otherwise None."
@@ -41,6 +53,15 @@ cli_args.add_app_launcher_args(parser)
 # default to headless mode for training; pass --no-headless or override with --headless False to enable GUI
 parser.set_defaults(headless=True)
 args_cli, hydra_args = parser.parse_known_args()
+
+# Reject accidental small-scale launches before starting Isaac Sim.
+if args_cli.paper_recipe:
+    if not args_cli.distributed or int(os.environ.get("WORLD_SIZE", "1")) != PAPER_WORLD_SIZE:
+        parser.error("--paper_recipe requires --distributed with WORLD_SIZE=8 (8 x 16384 environments).")
+    if args_cli.num_envs not in (None, PAPER_ENVS_PER_RANK):
+        parser.error("--paper_recipe requires --num_envs 16384 per rank.")
+    if args_cli.max_iterations not in (None, PAPER_ITERATIONS):
+        parser.error("--paper_recipe targets 100000 total iterations.")
 
 # always enable cameras to record video
 if args_cli.video:
@@ -77,13 +98,14 @@ if version.parse(installed_version) < version.parse(RSL_RL_VERSION):
 
 """Rest everything follows."""
 
+import json
 import logging
-import os
 import time
 from datetime import datetime
 
 import gymnasium as gym
 import torch
+from hydra_compat import hydra_task_config
 from rsl_rl.runners import OnPolicyRunner
 
 from isaaclab.envs import (
@@ -100,12 +122,12 @@ from isaaclab_rl.rsl_rl import RslRlBaseRunnerCfg, RslRlVecEnvWrapper
 
 import isaaclab_tasks  # noqa: F401
 from isaaclab_tasks.utils import get_checkpoint_path
-from hydra_compat import hydra_task_config
 
 # import logger
 logger = logging.getLogger(__name__)
 
 import g1_hoi_learning.tasks  # noqa: F401
+from g1_hoi_learning.algorithms.optimizers import restore_learning_rate
 
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
@@ -146,6 +168,36 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         env_cfg.seed = seed
         agent_cfg.seed = seed
 
+    recipe = make_training_recipe(
+        world_size=int(os.environ.get("WORLD_SIZE", "1")) if args_cli.distributed else 1,
+        envs_per_rank=env_cfg.scene.num_envs,
+        steps=agent_cfg.num_steps_per_env,
+        mini_batches=agent_cfg.algorithm.num_mini_batches,
+        epochs=agent_cfg.algorithm.num_learning_epochs,
+        motion_files=env_cfg.commands.motion.motion_files,
+    )
+    recipe.update({
+        "enforce_paper_recipe": args_cli.paper_recipe,
+        "target_iterations": agent_cfg.max_iterations,
+        "task": args_cli.task,
+        "run_name": agent_cfg.run_name,
+        "seed_rank0": agent_cfg.seed - local_rank if args_cli.distributed else agent_cfg.seed,
+        "isaaclab_version": metadata.version("isaaclab"),
+        "rsl_rl_version": installed_version,
+    })
+    if args_cli.paper_recipe:
+        validate_paper_recipe(recipe)
+        if agent_cfg.max_iterations != PAPER_ITERATIONS:
+            raise ValueError("The paper recipe targets 100000 total iterations.")
+        if args_cli.task != "G1-Inspire-HOI-v0" or not env_cfg.commands.motion.rsi or env_cfg.commands.motion.eval_mode:
+            raise ValueError("The paper recipe requires the unified HOI task with RSI enabled and eval_mode disabled.")
+    print(
+        f"[RECIPE] ranks={recipe['world_size']} envs/rank={recipe['envs_per_rank']} "
+        f"total_envs={recipe['total_envs']} global_rollout={recipe['global_rollout_samples']} "
+        f"matches_author_parallelism={recipe['matches_author_parallelism']}",
+        flush=True,
+    )
+
     # specify directory for logging experiments
     log_root_path = os.path.join("logs", "rsl_rl", agent_cfg.experiment_name)
     log_root_path = os.path.abspath(log_root_path)
@@ -171,17 +223,9 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # set the log directory for the environment (works for all environment types)
     env_cfg.log_dir = log_dir
 
-    # create isaac environment
-    env = gym.make(args_cli.task, cfg=env_cfg, render_mode="rgb_array" if args_cli.video else None)
-
-    # convert to single-agent instance if required by the RL algorithm
-    if isinstance(env.unwrapped, DirectMARLEnv):
-        env = multi_agent_to_single_agent(env)
-
-    # save resume path before creating a new log_dir
+    # Resolve and validate resume metadata before creating the physics scene.
     if agent_cfg.resume:
-        # Allow --load_run to be a direct path to a run dir; otherwise treat it as a
-        # run-name regex within this experiment.
+        # --load_run accepts a run directory or a run-name regex.
         load_run_abs = os.path.abspath(agent_cfg.load_run)
         if os.path.isdir(load_run_abs):
             resume_path = get_checkpoint_path(
@@ -189,6 +233,15 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             )
         else:
             resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
+        if args_cli.paper_recipe:
+            validate_paper_resume(resume_path, recipe)
+
+    # create isaac environment
+    env = gym.make(args_cli.task, cfg=env_cfg, render_mode="rgb_array" if args_cli.video else None)
+
+    # convert to single-agent instance if required by the RL algorithm
+    if isinstance(env.unwrapped, DirectMARLEnv):
+        env = multi_agent_to_single_agent(env)
 
     # wrap for video recording
     if args_cli.video:
@@ -220,22 +273,34 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         runner.load(resume_path)
         # RSL-RL restores optimizer groups but not PPO's adaptive-LR scalar.
         # Keep the first resumed update at the saved learning rate.
-        saved_lrs = {float(group["lr"]) for group in runner.alg.optimizer.param_groups}
-        if len(saved_lrs) == 1 and hasattr(runner.alg, "learning_rate"):
-            runner.alg.learning_rate = saved_lrs.pop()
+        restore_learning_rate(runner.alg)
         print(
             f"[RESUME] rank={global_rank} iteration={runner.current_learning_iteration} "
             f"optimizer={type(runner.alg.optimizer).__name__} learning_rate={runner.alg.learning_rate}",
             flush=True,
         )
 
+    iterations_to_run = agent_cfg.max_iterations
+    if args_cli.paper_recipe and agent_cfg.resume:
+        # RSL-RL saves the last completed, zero-based iteration, not the next one.
+        runner.current_learning_iteration += 1
+        iterations_to_run -= runner.current_learning_iteration
+        if iterations_to_run <= 0:
+            raise ValueError("This checkpoint has already completed the paper's 100000 iterations.")
+    recipe["starting_iteration"] = runner.current_learning_iteration
+    recipe["iterations_this_run"] = iterations_to_run
+    recipe["resume_checkpoint"] = resume_path if agent_cfg.resume else None
+
     # dump the configuration into log-directory
     if not args_cli.distributed or global_rank == 0:
         dump_yaml(os.path.join(log_dir, "params", "env.yaml"), env_cfg)
         dump_yaml(os.path.join(log_dir, "params", "agent.yaml"), agent_cfg)
+        with open(os.path.join(log_dir, "training_recipe.json"), "w", encoding="utf-8") as record:
+            json.dump(recipe, record, indent=2)
+            record.write("\n")
 
     # run training
-    runner.learn(num_learning_iterations=agent_cfg.max_iterations, init_at_random_ep_len=True)
+    runner.learn(num_learning_iterations=iterations_to_run, init_at_random_ep_len=True)
 
     print(f"Training time: {round(time.time() - start_time, 2)} seconds")
 

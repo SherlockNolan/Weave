@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import warnings
+from math import isfinite
 
 import torch
 import torch.nn as nn
@@ -52,6 +53,12 @@ class OptimizerGroup(torch.optim.Optimizer):
             else:
                 opt.zero_grad(set_to_none=set_to_none)
 
+    def set_learning_rate(self, learning_rate: float) -> None:
+        """Apply PPO's shared rate directly to the optimizers that update the parameters."""
+        for opt in self.optimizers:
+            for group in opt.param_groups:
+                group["lr"] = learning_rate
+
     def state_dict(self):
         return {
             "optimizers": [opt.state_dict() for opt in self.optimizers],
@@ -74,6 +81,19 @@ class OptimizerGroup(torch.optim.Optimizer):
         # wrapper references so restored and adaptive learning rates affect the
         # optimizers that actually step the parameters.
         self.param_groups = [group for opt in self.optimizers for group in opt.param_groups]
+
+
+def restore_learning_rate(algorithm) -> float:
+    """Restore PPO's adaptive scalar from the actual optimizer groups after checkpoint loading."""
+    optimizers = getattr(algorithm.optimizer, "optimizers", [algorithm.optimizer])
+    rates = {float(group["lr"]) for opt in optimizers for group in opt.param_groups}
+    if len(rates) != 1:
+        raise ValueError(f"PPO requires one shared restored learning rate, got {sorted(rates)}")
+    rate = rates.pop()
+    if not isfinite(rate) or rate <= 0:
+        raise ValueError(f"Invalid restored learning rate: {rate}")
+    algorithm.learning_rate = rate
+    return rate
 
 
 class MuonAdamWWrapper(OptimizerGroup):

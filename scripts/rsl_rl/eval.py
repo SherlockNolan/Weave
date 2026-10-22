@@ -128,6 +128,7 @@ class ClipEvaluator:
 
         self.finished = torch.zeros(n, dtype=torch.bool, device=self.device)
         self.success = torch.zeros(n, dtype=torch.bool, device=self.device)
+        self.simultaneous_failures = torch.zeros(n, dtype=torch.bool, device=self.device)
         self.steps = torch.zeros(n, dtype=torch.long, device=self.device)
         self.cause = [""] * n
         self.sums = {k: torch.zeros(n, device=self.device) for k in self.metric_keys}
@@ -147,9 +148,12 @@ class ClipEvaluator:
         newly = dones.bool() & ~self.finished
         if not newly.any():
             return
-        terminated = dones.bool() & ~time_outs
+        # A failure and clip_end can fire on the same step. RSL-RL's timeout
+        # mask alone cannot distinguish this case from successful completion.
+        terminated = self.term_mgr.terminated
         flags = {n: self.term_mgr.get_term(n) for n in self.term_names}
         self.success |= newly & flags["clip_end"] & ~terminated
+        self.simultaneous_failures |= newly & flags["clip_end"] & terminated
         for i in newly.nonzero(as_tuple=False).flatten().tolist():
             if terminated[i]:
                 self.cause[i] = next((n for n in self.fail_names if flags[n][i]), "unknown")
@@ -173,13 +177,23 @@ class ClipEvaluator:
             frames = self.steps[mask].sum().float()
             return {k: float(self.sums[k][mask].sum() / frames) for k in self.metric_keys}
 
+        def balanced(mask: torch.Tensor) -> dict[str, float]:
+            if not mask.any():
+                return {k: float("nan") for k in self.metric_keys}
+            return {k: float((self.sums[k][mask] / steps[mask]).mean()) for k in self.metric_keys}
+
         return {
             "num_clips": int(self.env.num_envs),
+            "num_finished": int(self.finished.sum()),
             "success_rate": float(success.float().mean()),
+            "success_rate_official_legacy": float((self.success | self.simultaneous_failures).float().mean()),
+            "simultaneous_clip_end_and_failure": int(self.simultaneous_failures.sum()),
             "progress_rate": float(progress.mean()),
             "metric_keys": self.metric_keys,
             "metrics_all": agg(torch.ones_like(self.success)),
             "metrics_success": agg(self.success),
+            "metrics_all_clip_balanced": balanced(torch.ones_like(self.success)),
+            "metrics_success_clip_balanced": balanced(self.success),
             "failures": {n: self.cause.count(n) for n in self.fail_names if self.cause.count(n) > 0},
             "clips": [
                 {
@@ -190,6 +204,7 @@ class ClipEvaluator:
                     "steps": int(self.steps[i]),
                     "progress": float(progress[i]),
                     "success": bool(success[i]),
+                    "finished": bool(self.finished[i]),
                     "cause": self.cause[i],
                     **{k: per_clip[k][i] for k in self.metric_keys},
                 }
@@ -319,6 +334,17 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     out_file = os.path.join(output_dir, "metrics.json")
     res["checkpoint"] = resume_path
     res["motion_files"] = list(env_cfg.commands.motion.motion_files)
+    res["evaluation_settings"] = {
+        "task": args_cli.task,
+        "seed": env_cfg.seed,
+        "device": str(env.unwrapped.device),
+        "physics_dt": env_cfg.sim.dt,
+        "control_dt": dt,
+        "episode_length_s": env_cfg.episode_length_s,
+        "eval_mode": env_cfg.commands.motion.eval_mode,
+        "rsi": env_cfg.commands.motion.rsi,
+        "num_envs": env.unwrapped.num_envs,
+    }
     with open(out_file, "w") as f:
         json.dump(res, f, indent=2)
     print(f"[INFO] Wrote {out_file}")

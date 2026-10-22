@@ -471,9 +471,13 @@ class G1HoiLearningEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.render_interval = self.decimation
         if hasattr(self.sim, "physx"):
             self.sim.physx.gpu_max_rigid_patch_count = 16 * 2**16
+            self.sim.physx.enable_external_forces_every_iteration = False
         else:
             # Isaac Lab 3 separates the physics backend from SimulationCfg.
             from isaaclab_physx.physics import PhysxCfg
 
-            self.sim.physics = PhysxCfg(gpu_max_rigid_patch_count=16 * 2**16)
+            self.sim.physics = PhysxCfg(
+                gpu_max_rigid_patch_count=16 * 2**16,
+                enable_external_forces_every_iteration=False,
+            )
             self.sim.use_newton_actuators = False

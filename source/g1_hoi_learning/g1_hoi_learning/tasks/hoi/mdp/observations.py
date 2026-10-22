@@ -13,6 +13,7 @@ from isaaclab.utils.math import (
     subtract_frame_transforms,
 )
 
+from g1_hoi_learning.isaac_compat import normal_contact_force_matrix
 from g1_hoi_learning.objects import ASSET_DIR
 
 from .commands import MotionCommand
@@ -280,7 +281,7 @@ def motion_future_contact_label(env: ManagerBasedEnv, command_name: str) -> torc
 
 
 def contact(env: ManagerBasedEnv, sensor_name: str, threshold: float = 1.0) -> torch.Tensor:
-    """Per-robot-body binary contact flag with object from force_matrix_w. (num_envs, 54)"""
+    """Per-robot-body binary normal-contact flag with the object. (num_envs, 54)"""
     sensor = env.scene[sensor_name]
-    forces = sensor.data.force_matrix_w[:, 0, :, :]  # (num_envs, 54, 3)
+    forces = normal_contact_force_matrix(sensor)[:, 0, :, :]  # (num_envs, 54, 3)
     return (forces.norm(dim=-1) > threshold).float()

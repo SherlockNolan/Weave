@@ -14,7 +14,8 @@ from isaaclab.assets import Articulation, RigidObject
 from isaaclab.envs import ManagerBasedRLEnv as _ManagerBasedRLEnv
 from isaaclab.managers import ManagerTermBase, SceneEntityCfg, TerminationTermCfg
 from isaaclab.sensors import ContactSensor
-from g1_hoi_learning.isaac_compat import as_torch
+
+from g1_hoi_learning.isaac_compat import as_torch, normal_contact_force_matrix
 
 from .commands import MotionCommand
 
@@ -94,7 +95,7 @@ def bad_motion_body_pos_z_only(
 class bad_contact(ManagerTermBase):
     """Terminate when all hand bodies lose object contact for N consecutive frames.
 
-    Uses force_matrix_w from object contact sensor (on Object, filtered against robot bodies).
+    Uses normal forces from the object contact sensor, filtered against robot bodies.
     The filter dimension is in robot.body_names order.
     """
 
@@ -127,7 +128,7 @@ class bad_contact(ManagerTermBase):
         any_expected = (ref_label > 0).any(dim=-1)  # (num_envs,)
 
         # Sim: does any hand body have object contact?
-        forces = sensor.data.force_matrix_w[:, 0, self.hand_idx, :]  # (num_envs, num_hand, 3)
+        forces = normal_contact_force_matrix(sensor)[:, 0, self.hand_idx, :]  # (num_envs, num_hand, 3)
         any_contact = (forces.norm(dim=-1) > threshold).any(dim=-1)  # (num_envs,)
 
         # Increment if expected but no contact, reset otherwise

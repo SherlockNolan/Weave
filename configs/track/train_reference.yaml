@@ -1,10 +1,13 @@
 # @package _global_
-# Paper Q1: train on the training split. The upstream train.yaml uses the test split (Q2).
+# D_train references. The author reports 8 x 16384 environments in issue #2.
+# num_envs is PER RANK; use train_paper.sh for the full eight-rank recipe.
 defaults:
   - train
   - _self_
 
 env:
+  scene:
+    num_envs: 16384
   commands:
     motion:
       motion_files:
