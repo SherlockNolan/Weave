@@ -1,0 +1,286 @@
+{
+  "structure": {
+    "source_files_verified": 80,
+    "body_links_unchanged": 37,
+    "body_joints_unchanged": 36,
+    "links": 83,
+    "joints": 82,
+    "movable_joints": 51,
+    "independent_controls": 41,
+    "mimic_joints": 10,
+    "mounts": {
+      "left": {
+        "finger_anchor_position_error_m": {
+          "thumb_metacarpal": 0.0,
+          "index_proximal": 0.0,
+          "middle_proximal": 0.0,
+          "ring_proximal": 2.760114936372031e-07,
+          "pinky_proximal": 0.0
+        },
+        "parent": "left_wrist_yaw_link",
+        "child": "left_hand_base_link",
+        "xyz": "0.0591 0 0",
+        "rpy": "-1.570796326 0 -1.570796326"
+      },
+      "right": {
+        "finger_anchor_position_error_m": {
+          "thumb_metacarpal": 0.0,
+          "index_proximal": 0.0,
+          "middle_proximal": 0.0,
+          "ring_proximal": 0.0,
+          "pinky_proximal": 0.0
+        },
+        "parent": "right_wrist_yaw_link",
+        "child": "right_hand_base_link",
+        "xyz": "0.0591 0 0",
+        "rpy": "1.570796326 0 1.570796326"
+      }
+    }
+  },
+  "kinematic_limit_poses_checked": 6,
+  "contacts": {
+    "method": "FCL convex hulls; fixed-connected and adjacent movable bodies excluded; CPU only",
+    "is_physx_validation": false,
+    "collision_shapes": 78,
+    "poses": {
+      "zero_open": [
+        {
+          "links": [
+            "left_hand_base_link",
+            "left_thumb_proximal_link"
+          ],
+          "penetration_m": 0.00020215714093807331
+        }
+      ],
+      "standing_hand_0": [
+        {
+          "links": [
+            "left_hand_base_link",
+            "left_thumb_proximal_link"
+          ],
+          "penetration_m": 0.0002021571409381001
+        }
+      ],
+      "standing_hand_0.25": [],
+      "standing_hand_0.5": [],
+      "standing_hand_0.75": [
+        {
+          "links": [
+            "left_thumb_proximal_link",
+            "left_index_touch_link"
+          ],
+          "penetration_m": 0.008725413098650055
+        },
+        {
+          "links": [
+            "left_thumb_proximal_link",
+            "left_index_distal_link"
+          ],
+          "penetration_m": 0.008172334049240086
+        },
+        {
+          "links": [
+            "right_thumb_proximal_link",
+            "right_index_distal_link"
+          ],
+          "penetration_m": 0.007952676211948619
+        },
+        {
+          "links": [
+            "right_thumb_proximal_link",
+            "right_index_touch_link"
+          ],
+          "penetration_m": 0.004037204645091377
+        },
+        {
+          "links": [
+            "left_thumb_touch_link",
+            "left_index_distal_link"
+          ],
+          "penetration_m": 0.00018029131412817907
+        },
+        {
+          "links": [
+            "left_thumb_distal_link",
+            "left_index_distal_link"
+          ],
+          "penetration_m": 1.6400477015561195e-05
+        }
+      ],
+      "standing_hand_1": [
+        {
+          "links": [
+            "left_thumb_distal_link",
+            "left_middle_distal_link"
+          ],
+          "penetration_m": 0.018482889335893083
+        },
+        {
+          "links": [
+            "right_thumb_distal_link",
+            "right_middle_distal_link"
+          ],
+          "penetration_m": 0.01787845978326908
+        },
+        {
+          "links": [
+            "right_thumb_touch_link",
+            "right_middle_distal_link"
+          ],
+          "penetration_m": 0.017348744182091213
+        },
+        {
+          "links": [
+            "left_thumb_touch_link",
+            "left_middle_distal_link"
+          ],
+          "penetration_m": 0.015820292006690887
+        },
+        {
+          "links": [
+            "right_thumb_touch_link",
+            "right_middle_proximal_link"
+          ],
+          "penetration_m": 0.015716312235957753
+        },
+        {
+          "links": [
+            "left_thumb_touch_link",
+            "left_middle_proximal_link"
+          ],
+          "penetration_m": 0.014828375296551618
+        },
+        {
+          "links": [
+            "left_thumb_distal_link",
+            "left_middle_proximal_link"
+          ],
+          "penetration_m": 0.012694953689982785
+        },
+        {
+          "links": [
+            "right_thumb_distal_link",
+            "right_middle_proximal_link"
+          ],
+          "penetration_m": 0.011910075816914369
+        },
+        {
+          "links": [
+            "left_thumb_proximal_link",
+            "left_middle_distal_link"
+          ],
+          "penetration_m": 0.011317768267943258
+        },
+        {
+          "links": [
+            "right_thumb_proximal_link",
+            "right_middle_distal_link"
+          ],
+          "penetration_m": 0.009665140109754012
+        },
+        {
+          "links": [
+            "left_thumb_touch_link",
+            "left_ring_proximal_link"
+          ],
+          "penetration_m": 0.006538959790339093
+        },
+        {
+          "links": [
+            "left_thumb_distal_link",
+            "left_ring_proximal_link"
+          ],
+          "penetration_m": 0.0064762058291827195
+        },
+        {
+          "links": [
+            "right_thumb_touch_link",
+            "right_ring_proximal_link"
+          ],
+          "penetration_m": 0.005162210816456172
+        },
+        {
+          "links": [
+            "right_thumb_distal_link",
+            "right_ring_proximal_link"
+          ],
+          "penetration_m": 0.004963045545002234
+        },
+        {
+          "links": [
+            "left_thumb_touch_link",
+            "left_ring_distal_link"
+          ],
+          "penetration_m": 0.003523055598572745
+        },
+        {
+          "links": [
+            "left_thumb_distal_link",
+            "left_ring_distal_link"
+          ],
+          "penetration_m": 0.003063271608385739
+        },
+        {
+          "links": [
+            "right_thumb_touch_link",
+            "right_ring_distal_link"
+          ],
+          "penetration_m": 0.0026125420196168496
+        },
+        {
+          "links": [
+            "right_thumb_distal_link",
+            "right_ring_distal_link"
+          ],
+          "penetration_m": 0.0019747540089963913
+        },
+        {
+          "links": [
+            "left_hand_base_link",
+            "left_thumb_proximal_link"
+          ],
+          "penetration_m": 0.0019590479506543497
+        },
+        {
+          "links": [
+            "right_hand_base_link",
+            "right_pinky_touch_link"
+          ],
+          "penetration_m": 0.0018281387524812535
+        },
+        {
+          "links": [
+            "left_hand_base_link",
+            "left_pinky_touch_link"
+          ],
+          "penetration_m": 0.0018278957217492716
+        },
+        {
+          "links": [
+            "right_hand_base_link",
+            "right_thumb_proximal_link"
+          ],
+          "penetration_m": 0.000790880165093379
+        },
+        {
+          "links": [
+            "left_thumb_proximal_link",
+            "left_index_distal_link"
+          ],
+          "penetration_m": 0.00022549511628967205
+        }
+      ]
+    },
+    "default_pose": "standing_hand_0.25",
+    "default_pose_has_penetration": false
+  },
+  "independent_parser": {
+    "parser": "yourdfpy",
+    "version": "0.0.60",
+    "poses": 10,
+    "frames_per_pose": 83,
+    "maximum_fk_matrix_error": 9.992007221626409e-16,
+    "visual_geometries": 72,
+    "collision_geometries": 66
+  }
+}

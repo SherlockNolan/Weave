@@ -1,0 +1,2099 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="g1_29dof_revo2">
+  <material name="dark">
+    <color rgba="0.2 0.2 0.2 1" />
+  </material>
+  <material name="white">
+    <color rgba="0.7 0.7 0.7 1" />
+  </material>
+  <mujoco>
+    <compiler meshdir="meshes" discardvisual="false" />
+  </mujoco>
+  <link name="pelvis">
+    <inertial>
+      <origin xyz="0 0 -0.07605" rpy="0 0 0" />
+      <mass value="3.813" />
+      <inertia ixx="0.010549" ixy="0" ixz="2.1E-06" iyy="0.0093089" iyz="0" izz="0.0079184" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/pelvis.STL" />
+      </geometry>
+      <material name="dark" />
+    </visual>
+  </link>
+  <link name="pelvis_contour_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1e-7" ixy="0" ixz="0" iyy="1e-7" iyz="0" izz="1e-7" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/pelvis_contour_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/pelvis_contour_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="pelvis_contour_joint" type="fixed">
+    <parent link="pelvis" />
+    <child link="pelvis_contour_link" />
+  </joint>
+  <link name="left_hip_pitch_link">
+    <inertial>
+      <origin xyz="0.002741 0.047791 -0.02606" rpy="0 0 0" />
+      <mass value="1.35" />
+      <inertia ixx="0.001811" ixy="3.68E-05" ixz="-3.44E-05" iyy="0.0014193" iyz="0.000171" izz="0.0012812" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_hip_pitch_link.STL" />
+      </geometry>
+      <material name="dark" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_hip_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_hip_pitch_joint" type="revolute">
+    <origin xyz="0 0.064452 -0.1027" rpy="0 0 0" />
+    <parent link="pelvis" />
+    <child link="left_hip_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-2.5307" upper="2.8798" effort="88" velocity="32" />
+  </joint>
+  <link name="left_hip_roll_link">
+    <inertial>
+      <origin xyz="0.029812 -0.001045 -0.087934" rpy="0 0 0" />
+      <mass value="1.52" />
+      <inertia ixx="0.0023773" ixy="-3.8E-06" ixz="-0.0003908" iyy="0.0024123" iyz="1.84E-05" izz="0.0016595" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_hip_roll_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_hip_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_hip_roll_joint" type="revolute">
+    <origin xyz="0 0.052 -0.030465" rpy="0 -0.1749 0" />
+    <parent link="left_hip_pitch_link" />
+    <child link="left_hip_roll_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.5236" upper="2.9671" effort="139" velocity="20" />
+  </joint>
+  <link name="left_hip_yaw_link">
+    <inertial>
+      <origin xyz="-0.057709 -0.010981 -0.15078" rpy="0 0 0" />
+      <mass value="1.702" />
+      <inertia ixx="0.0057774" ixy="-0.0005411" ixz="-0.0023948" iyy="0.0076124" iyz="-0.0007072" izz="0.003149" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_hip_yaw_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_hip_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_hip_yaw_joint" type="revolute">
+    <origin xyz="0.025001 0 -0.12412" rpy="0 0 0" />
+    <parent link="left_hip_roll_link" />
+    <child link="left_hip_yaw_link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-2.7576" upper="2.7576" effort="88" velocity="32" />
+  </joint>
+  <link name="left_knee_link">
+    <inertial>
+      <origin xyz="0.005457 0.003964 -0.12074" rpy="0 0 0" />
+      <mass value="1.932" />
+      <inertia ixx="0.011329" ixy="4.82E-05" ixz="-4.49E-05" iyy="0.011277" iyz="-0.0007146" izz="0.0015168" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_knee_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_knee_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_knee_joint" type="revolute">
+    <origin xyz="-0.078273 0.0021489 -0.17734" rpy="0 0.1749 0" />
+    <parent link="left_hip_yaw_link" />
+    <child link="left_knee_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.087267" upper="2.8798" effort="139" velocity="20" />
+  </joint>
+  <link name="left_ankle_pitch_link">
+    <inertial>
+      <origin xyz="-0.007269 0 0.011137" rpy="0 0 0" />
+      <mass value="0.074" />
+      <inertia ixx="8.4E-06" ixy="0" ixz="-2.9E-06" iyy="1.89E-05" iyz="0" izz="1.26E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_ankle_pitch_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_ankle_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_ankle_pitch_joint" type="revolute">
+    <origin xyz="0 -9.4445E-05 -0.30001" rpy="0 0 0" />
+    <parent link="left_knee_link" />
+    <child link="left_ankle_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.87267" upper="0.5236" effort="35" velocity="30" />
+  </joint>
+  <link name="left_ankle_roll_link">
+    <inertial>
+      <origin xyz="0.026505 0 -0.016425" rpy="0 0 0" />
+      <mass value="0.608" />
+      <inertia ixx="0.0002231" ixy="2E-07" ixz="8.91E-05" iyy="0.0016161" iyz="-1E-07" izz="0.0016667" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_ankle_roll_link.STL" />
+      </geometry>
+      <material name="dark">
+        <color rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.075 -0.026 -0.025" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.01" length="0.05" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.0395 -0.018 -0.025" rpy="0 -1.5708 0" />
+      <geometry>
+        <cylinder radius="0.008" length="0.167" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.039 -0.01 -0.025" rpy="0 -1.5708 0" />
+      <geometry>
+        <cylinder radius="0.01" length="0.182" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.039 0 -0.025" rpy="0 -1.5708 0" />
+      <geometry>
+        <cylinder radius="0.01" length="0.186" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.039 0.01 -0.025" rpy="0 -1.5708 0" />
+      <geometry>
+        <cylinder radius="0.01" length="0.182" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.0395 0.018 -0.025" rpy="0 -1.5708 0" />
+      <geometry>
+        <cylinder radius="0.008" length="0.167" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.075 0.026 -0.025" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.01" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_ankle_roll_joint" type="revolute">
+    <origin xyz="0 0 -0.017558" rpy="0 0 0" />
+    <parent link="left_ankle_pitch_link" />
+    <child link="left_ankle_roll_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.2618" upper="0.2618" effort="35" velocity="30" />
+  </joint>
+  <link name="right_hip_pitch_link">
+    <inertial>
+      <origin xyz="0.002741 -0.047791 -0.02606" rpy="0 0 0" />
+      <mass value="1.35" />
+      <inertia ixx="0.001811" ixy="-3.68E-05" ixz="-3.44E-05" iyy="0.0014193" iyz="-0.000171" izz="0.0012812" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_hip_pitch_link.STL" />
+      </geometry>
+      <material name="dark" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_hip_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_hip_pitch_joint" type="revolute">
+    <origin xyz="0 -0.064452 -0.1027" rpy="0 0 0" />
+    <parent link="pelvis" />
+    <child link="right_hip_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-2.5307" upper="2.8798" effort="88" velocity="32" />
+  </joint>
+  <link name="right_hip_roll_link">
+    <inertial>
+      <origin xyz="0.029812 0.001045 -0.087934" rpy="0 0 0" />
+      <mass value="1.52" />
+      <inertia ixx="0.0023773" ixy="3.8E-06" ixz="-0.0003908" iyy="0.0024123" iyz="-1.84E-05" izz="0.0016595" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_hip_roll_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_hip_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_hip_roll_joint" type="revolute">
+    <origin xyz="0 -0.052 -0.030465" rpy="0 -0.1749 0" />
+    <parent link="right_hip_pitch_link" />
+    <child link="right_hip_roll_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-2.9671" upper="0.5236" effort="139" velocity="20" />
+  </joint>
+  <link name="right_hip_yaw_link">
+    <inertial>
+      <origin xyz="-0.057709 0.010981 -0.15078" rpy="0 0 0" />
+      <mass value="1.702" />
+      <inertia ixx="0.0057774" ixy="0.0005411" ixz="-0.0023948" iyy="0.0076124" iyz="0.0007072" izz="0.003149" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_hip_yaw_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_hip_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_hip_yaw_joint" type="revolute">
+    <origin xyz="0.025001 0 -0.12412" rpy="0 0 0" />
+    <parent link="right_hip_roll_link" />
+    <child link="right_hip_yaw_link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-2.7576" upper="2.7576" effort="88" velocity="32" />
+  </joint>
+  <link name="right_knee_link">
+    <inertial>
+      <origin xyz="0.005457 -0.003964 -0.12074" rpy="0 0 0" />
+      <mass value="1.932" />
+      <inertia ixx="0.011329" ixy="-4.82E-05" ixz="4.49E-05" iyy="0.011277" iyz="0.0007146" izz="0.0015168" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_knee_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_knee_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_knee_joint" type="revolute">
+    <origin xyz="-0.078273 -0.0021489 -0.17734" rpy="0 0.1749 0" />
+    <parent link="right_hip_yaw_link" />
+    <child link="right_knee_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.087267" upper="2.8798" effort="139" velocity="20" />
+  </joint>
+  <link name="right_ankle_pitch_link">
+    <inertial>
+      <origin xyz="-0.007269 0 0.011137" rpy="0 0 0" />
+      <mass value="0.074" />
+      <inertia ixx="8.4E-06" ixy="0" ixz="-2.9E-06" iyy="1.89E-05" iyz="0" izz="1.26E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_ankle_pitch_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_ankle_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_ankle_pitch_joint" type="revolute">
+    <origin xyz="0 9.4445E-05 -0.30001" rpy="0 0 0" />
+    <parent link="right_knee_link" />
+    <child link="right_ankle_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.87267" upper="0.5236" effort="35" velocity="30" />
+  </joint>
+  <link name="right_ankle_roll_link">
+    <inertial>
+      <origin xyz="0.026505 0 -0.016425" rpy="0 0 0" />
+      <mass value="0.608" />
+      <inertia ixx="0.0002231" ixy="-2E-07" ixz="8.91E-05" iyy="0.0016161" iyz="1E-07" izz="0.0016667" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_ankle_roll_link.STL" />
+      </geometry>
+      <material name="dark">
+        <color rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.075 -0.026 -0.025" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.01" length="0.05" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.0395 -0.018 -0.025" rpy="0 -1.5708 0" />
+      <geometry>
+        <cylinder radius="0.008" length="0.167" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.039 -0.01 -0.025" rpy="0 -1.5708 0" />
+      <geometry>
+        <cylinder radius="0.01" length="0.182" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.039 0 -0.025" rpy="0 -1.5708 0" />
+      <geometry>
+        <cylinder radius="0.01" length="0.186" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.039 0.01 -0.025" rpy="0 -1.5708 0" />
+      <geometry>
+        <cylinder radius="0.01" length="0.182" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.0395 0.018 -0.025" rpy="0 -1.5708 0" />
+      <geometry>
+        <cylinder radius="0.008" length="0.167" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.075 0.026 -0.025" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.01" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_ankle_roll_joint" type="revolute">
+    <origin xyz="0 0 -0.017558" rpy="0 0 0" />
+    <parent link="right_ankle_pitch_link" />
+    <child link="right_ankle_roll_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.2618" upper="0.2618" effort="35" velocity="30" />
+  </joint>
+  <link name="waist_yaw_link">
+    <inertial>
+      <origin xyz="0.003494 0.000233 0.018034" rpy="0 0 0" />
+      <mass value="0.214" />
+      <inertia ixx="0.00010673" ixy="2.703E-06" ixz="-7.631E-06" iyy="0.00010422" iyz="-2.01E-07" izz="0.0001625" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/waist_yaw_link_rev_1_0.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+  </link>
+  <joint name="waist_yaw_joint" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="pelvis" />
+    <child link="waist_yaw_link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-2.618" upper="2.618" effort="88" velocity="32" />
+  </joint>
+  <link name="waist_roll_link">
+    <inertial>
+      <origin xyz="0 2.3E-05 0" rpy="0 0 0" />
+      <mass value="0.086" />
+      <inertia ixx="7.079E-06" ixy="0" ixz="0" iyy="6.339E-06" iyz="0" izz="8.245E-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/waist_roll_link_rev_1_0.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+  </link>
+  <joint name="waist_roll_joint" type="revolute">
+    <origin xyz="-0.0039635 0 0.044" rpy="0 0 0" />
+    <parent link="waist_yaw_link" />
+    <child link="waist_roll_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.52" upper="0.52" effort="35" velocity="30" />
+  </joint>
+  <link name="torso_link">
+    <inertial>
+      <origin xyz="0.000931 0.000346 0.15082" rpy="0 0 0" />
+      <mass value="6.78" />
+      <inertia ixx="0.05905" ixy="3.3302E-05" ixz="-0.0017715" iyy="0.047014" iyz="-2.2399E-05" izz="0.025652" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/torso_link_rev_1_0.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/torso_link_rev_1_0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="waist_pitch_joint" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="waist_roll_link" />
+    <child link="torso_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.52" upper="0.52" effort="35" velocity="30" />
+  </joint>
+  <joint name="logo_joint" type="fixed">
+    <origin xyz="0.0039635 0 -0.044" rpy="0 0 0" />
+    <parent link="torso_link" />
+    <child link="logo_link" />
+  </joint>
+  <link name="logo_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1e-7" ixy="0" ixz="0" iyy="1e-7" iyz="0" izz="1e-7" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/logo_link.STL" />
+      </geometry>
+      <material name="dark" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/logo_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="head_link">
+    <inertial>
+      <origin xyz="0.005267 0.000299 0.449869" rpy="0 0 0" />
+      <mass value="1.036" />
+      <inertia ixx="0.004085051" ixy="-2.543E-06" ixz="-6.9455E-05" iyy="0.004185212" iyz="-3.726E-06" izz="0.001807911" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/head_link.STL" />
+      </geometry>
+      <material name="dark" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/head_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="head_joint" type="fixed">
+    <origin xyz="0.0039635 0 -0.044" rpy="0 0 0" />
+    <parent link="torso_link" />
+    <child link="head_link" />
+  </joint>
+  <link name="imu_in_torso" />
+  <joint name="imu_in_torso_joint" type="fixed">
+    <origin xyz="-0.03959 -0.00224 0.14792" rpy="0 0 0" />
+    <parent link="torso_link" />
+    <child link="imu_in_torso" />
+  </joint>
+  <link name="imu_in_pelvis" />
+  <joint name="imu_in_pelvis_joint" type="fixed">
+    <origin xyz="0.04525 0 -0.08339" rpy="0 0 0" />
+    <parent link="pelvis" />
+    <child link="imu_in_pelvis" />
+  </joint>
+  <link name="d435_link" />
+  <joint name="d435_joint" type="fixed">
+    <origin xyz="0.0576235 0.01753 0.42987" rpy="0 0.8307767239493009 0" />
+    <parent link="torso_link" />
+    <child link="d435_link" />
+  </joint>
+  <link name="mid360_link" />
+  <joint name="mid360_joint" type="fixed">
+    <origin xyz="0.0002835 0.00003 0.41618" rpy="0 0.04014257279586953 0" />
+    <parent link="torso_link" />
+    <child link="mid360_link" />
+  </joint>
+  <link name="left_shoulder_pitch_link">
+    <inertial>
+      <origin xyz="0 0.035892 -0.011628" rpy="0 0 0" />
+      <mass value="0.718" />
+      <inertia ixx="0.0004291" ixy="-9.2E-06" ixz="6.4E-06" iyy="0.000453" iyz="2.26E-05" izz="0.000423" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_shoulder_pitch_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0.04 -0.01" rpy="0 1.5707963267948966 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_shoulder_pitch_joint" type="revolute">
+    <origin xyz="0.0039563 0.10022 0.24778" rpy="0.27931 5.4949E-05 -0.00019159" />
+    <parent link="torso_link" />
+    <child link="left_shoulder_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-3.0892" upper="2.6704" effort="25" velocity="37" />
+  </joint>
+  <link name="left_shoulder_roll_link">
+    <inertial>
+      <origin xyz="-0.000227 0.00727 -0.063243" rpy="0 0 0" />
+      <mass value="0.643" />
+      <inertia ixx="0.0006177" ixy="-1E-06" ixz="8.7E-06" iyy="0.0006912" iyz="-5.3E-06" izz="0.0003894" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_shoulder_roll_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="-0.004 0.006 -0.053" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.03" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_shoulder_roll_joint" type="revolute">
+    <origin xyz="0 0.038 -0.013831" rpy="-0.27925 0 0" />
+    <parent link="left_shoulder_pitch_link" />
+    <child link="left_shoulder_roll_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.5882" upper="2.2515" effort="25" velocity="37" />
+  </joint>
+  <link name="left_shoulder_yaw_link">
+    <inertial>
+      <origin xyz="0.010773 -0.002949 -0.072009" rpy="0 0 0" />
+      <mass value="0.734" />
+      <inertia ixx="0.0009988" ixy="7.9E-06" ixz="0.0001412" iyy="0.0010605" iyz="-2.86E-05" izz="0.0004354" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_shoulder_yaw_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_shoulder_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_shoulder_yaw_joint" type="revolute">
+    <origin xyz="0 0.00624 -0.1032" rpy="0 0 0" />
+    <parent link="left_shoulder_roll_link" />
+    <child link="left_shoulder_yaw_link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-2.618" upper="2.618" effort="25" velocity="37" />
+  </joint>
+  <link name="left_elbow_link">
+    <inertial>
+      <origin xyz="0.064956 0.004454 -0.010062" rpy="0 0 0" />
+      <mass value="0.6" />
+      <inertia ixx="0.0002891" ixy="6.53E-05" ixz="1.72E-05" iyy="0.0004152" iyz="-5.6E-06" izz="0.0004197" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_elbow_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_elbow_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_elbow_joint" type="revolute">
+    <origin xyz="0.015783 0 -0.080518" rpy="0 0 0" />
+    <parent link="left_shoulder_yaw_link" />
+    <child link="left_elbow_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.0472" upper="2.0944" effort="25" velocity="37" />
+  </joint>
+  <joint name="left_wrist_roll_joint" type="revolute">
+    <origin xyz="0.100 0.00188791 -0.010" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <parent link="left_elbow_link" />
+    <child link="left_wrist_roll_link" />
+    <limit effort="25" velocity="37" lower="-1.972222054" upper="1.972222054" />
+  </joint>
+  <link name="left_wrist_roll_link">
+    <inertial>
+      <origin xyz="0.01713944778 0.00053759094 0.00000048864" rpy="0 0 0" />
+      <mass value="0.08544498" />
+      <inertia ixx="0.00004821544023" ixy="-0.00000424511021" ixz="0.00000000510599" iyy="0.00003722899093" iyz="-0.00000000123525" izz="0.00005482106541" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_wrist_roll_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_wrist_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_wrist_pitch_joint" type="revolute">
+    <origin xyz="0.038 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <parent link="left_wrist_roll_link" />
+    <child link="left_wrist_pitch_link" />
+    <limit effort="5" velocity="22" lower="-1.614429558" upper="1.614429558" />
+  </joint>
+  <link name="left_wrist_pitch_link">
+    <inertial>
+      <origin xyz="0.02299989837 -0.00111685314 -0.00111658096" rpy="0 0 0" />
+      <mass value="0.48404956" />
+      <inertia ixx="0.00016579646273" ixy="-0.00001231206746" ixz="0.00001231699194" iyy="0.00042954057410" iyz="0.00000081417712" izz="0.00042953697654" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_wrist_pitch_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_wrist_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_wrist_yaw_joint" type="revolute">
+    <origin xyz="0.046 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <parent link="left_wrist_pitch_link" />
+    <child link="left_wrist_yaw_link" />
+    <limit effort="5" velocity="22" lower="-1.614429558" upper="1.614429558" />
+  </joint>
+  <link name="left_wrist_yaw_link">
+    <inertial>
+      <origin xyz="0.02200381568 0.00049485096 0.00053861123" rpy="0 0 0" />
+      <mass value="0.08457647" />
+      <inertia ixx="0.00004929128828" ixy="-0.00000045735494" ixz="0.00000445867591" iyy="0.00005973338134" iyz="0.00000043217198" izz="0.00003928083826" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_wrist_yaw_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/left_wrist_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_shoulder_pitch_link">
+    <inertial>
+      <origin xyz="0 -0.035892 -0.011628" rpy="0 0 0" />
+      <mass value="0.718" />
+      <inertia ixx="0.0004291" ixy="9.2E-06" ixz="6.4E-06" iyy="0.000453" iyz="-2.26E-05" izz="0.000423" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_shoulder_pitch_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 -0.04 -0.01" rpy="0 1.5707963267948966 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.05" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_shoulder_pitch_joint" type="revolute">
+    <origin xyz="0.0039563 -0.10021 0.24778" rpy="-0.27931 5.4949E-05 0.00019159" />
+    <parent link="torso_link" />
+    <child link="right_shoulder_pitch_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-3.0892" upper="2.6704" effort="25" velocity="37" />
+  </joint>
+  <link name="right_shoulder_roll_link">
+    <inertial>
+      <origin xyz="-0.000227 -0.00727 -0.063243" rpy="0 0 0" />
+      <mass value="0.643" />
+      <inertia ixx="0.0006177" ixy="1E-06" ixz="8.7E-06" iyy="0.0006912" iyz="5.3E-06" izz="0.0003894" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_shoulder_roll_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="-0.004 -0.006 -0.053" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.03" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_shoulder_roll_joint" type="revolute">
+    <origin xyz="0 -0.038 -0.013831" rpy="0.27925 0 0" />
+    <parent link="right_shoulder_pitch_link" />
+    <child link="right_shoulder_roll_link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-2.2515" upper="1.5882" effort="25" velocity="37" />
+  </joint>
+  <link name="right_shoulder_yaw_link">
+    <inertial>
+      <origin xyz="0.010773 0.002949 -0.072009" rpy="0 0 0" />
+      <mass value="0.734" />
+      <inertia ixx="0.0009988" ixy="-7.9E-06" ixz="0.0001412" iyy="0.0010605" iyz="2.86E-05" izz="0.0004354" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_shoulder_yaw_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_shoulder_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_shoulder_yaw_joint" type="revolute">
+    <origin xyz="0 -0.00624 -0.1032" rpy="0 0 0" />
+    <parent link="right_shoulder_roll_link" />
+    <child link="right_shoulder_yaw_link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-2.618" upper="2.618" effort="25" velocity="37" />
+  </joint>
+  <link name="right_elbow_link">
+    <inertial>
+      <origin xyz="0.064956 -0.004454 -0.010062" rpy="0 0 0" />
+      <mass value="0.6" />
+      <inertia ixx="0.0002891" ixy="-6.53E-05" ixz="1.72E-05" iyy="0.0004152" iyz="5.6E-06" izz="0.0004197" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_elbow_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_elbow_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_elbow_joint" type="revolute">
+    <origin xyz="0.015783 0 -0.080518" rpy="0 0 0" />
+    <parent link="right_shoulder_yaw_link" />
+    <child link="right_elbow_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.0472" upper="2.0944" effort="25" velocity="37" />
+  </joint>
+  <joint name="right_wrist_roll_joint" type="revolute">
+    <origin xyz="0.100 -0.00188791 -0.010" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+    <parent link="right_elbow_link" />
+    <child link="right_wrist_roll_link" />
+    <limit effort="25" velocity="37" lower="-1.972222054" upper="1.972222054" />
+  </joint>
+  <link name="right_wrist_roll_link">
+    <inertial>
+      <origin xyz="0.01713944778 -0.00053759094 0.00000048864" rpy="0 0 0" />
+      <mass value="0.08544498" />
+      <inertia ixx="0.00004821544023" ixy="0.00000424511021" ixz="0.00000000510599" iyy="0.00003722899093" iyz="0.00000000123525" izz="0.00005482106541" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_wrist_roll_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_wrist_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_wrist_pitch_joint" type="revolute">
+    <origin xyz="0.038 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <parent link="right_wrist_roll_link" />
+    <child link="right_wrist_pitch_link" />
+    <limit effort="5" velocity="22" lower="-1.614429558" upper="1.614429558" />
+  </joint>
+  <link name="right_wrist_pitch_link">
+    <inertial>
+      <origin xyz="0.02299989837 0.00111685314 -0.00111658096" rpy="0 0 0" />
+      <mass value="0.48404956" />
+      <inertia ixx="0.00016579646273" ixy="0.00001231206746" ixz="0.00001231699194" iyy="0.00042954057410" iyz="-0.00000081417712" izz="0.00042953697654" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_wrist_pitch_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_wrist_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_wrist_yaw_joint" type="revolute">
+    <origin xyz="0.046 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <parent link="right_wrist_pitch_link" />
+    <child link="right_wrist_yaw_link" />
+    <limit effort="5" velocity="22" lower="-1.614429558" upper="1.614429558" />
+  </joint>
+  <link name="right_wrist_yaw_link">
+    <inertial>
+      <origin xyz="0.02200381568 -0.00049485096 0.00053861123" rpy="0 0 0" />
+      <mass value="0.08457647" />
+      <inertia ixx="0.00004929128828" ixy="0.00000045735494" ixz="0.00000445867591" iyy="0.00005973338134" iyz="-0.00000043217198" izz="0.00003928083826" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_wrist_yaw_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../unitree_g1/meshes/right_wrist_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_base2_link">
+    <inertial>
+      <origin xyz="-0.00283400 0 0.00000145" rpy="0 0 0" />
+      <mass value="0.02280635" />
+      <inertia ixx="0.00000768" ixy="0.00000000" ixz="0.00000000" iyy="0.00000580" iyz="-0.00000000" izz="0.00000427" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/unitree/robots/g1_with_brainco_hand/meshes/left_base2_link.STL" />
+      </geometry>
+      <material name="white">
+        <color rgba="0.7 0.7 0.7 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/unitree/robots/g1_with_brainco_hand/meshes/left_base2_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_base2_joint" type="fixed">
+    <origin xyz="0.0415 0 0" rpy="0 0 0" />
+    <parent link="left_wrist_yaw_link" />
+    <child link="left_base2_link" />
+  </joint>
+  <link name="left_hand_base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0050069196557942898 0.0031951498725952578 0.044048985017541092" />
+      <mass value="0.23799999999999999" />
+      <inertia ixx="0.00021243703191569629" ixy="-2.160578998863694e-06" ixz="3.6168810917662211e-06" iyy="0.00016014308936489096" iyz="1.2241686067591412e-05" izz="7.7420062865293511e-05" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_base_link.STL" />
+      </geometry>
+      <material name="revo2_left_hand_base_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_base_visual_link.STL" />
+      </geometry>
+      <material name="revo2_left_hand_base_link_1">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_thumb_metacarpal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="5.2448120648044896e-05 -0.0064127113564924525 -0.0038999285548428604" />
+      <mass value="0.01" />
+      <inertia ixx="1.0391374023389509e-06" ixy="2.6878105173942598e-08" ixz="3.1994739840723345e-09" iyy="9.9133648861034965e-07" iyz="8.0715388563913015e-08" izz="3.2287162991569446e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_thumb_metacarpal_link.STL" />
+      </geometry>
+      <material name="revo2_left_thumb_metacarpal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_thumb_metacarpal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_thumb_metacarpal_joint" type="revolute">
+    <origin rpy="0 0 0.16787" xyz="0.0045 -0.019 0.027825" />
+    <parent link="left_hand_base_link" />
+    <child link="left_thumb_metacarpal_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.5" lower="0" upper="1.57" velocity="2.6175" />
+  </joint>
+  <link name="left_thumb_proximal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-5.3592746671882903e-07 -0.027910209963501159 -0.0021690604228547681" />
+      <mass value="0.050000000000000003" />
+      <inertia ixx="1.1041485159004667e-05" ixy="0" ixz="0" iyy="1.7787677179094888e-06" iyz="-2.7574629630040948e-08" izz="1.1565614290883625e-05" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_thumb_proximal_link.STL" />
+      </geometry>
+      <material name="revo2_left_thumb_proximal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_thumb_proximal_visual_link.STL" />
+      </geometry>
+      <material name="revo2_left_thumb_proximal_link_1">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_thumb_proximal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_thumb_proximal_joint" type="revolute">
+    <origin rpy="-0.17488 0.23736 -0.16787" xyz="0 -0.014227 0" />
+    <parent link="left_thumb_metacarpal_link" />
+    <child link="left_thumb_proximal_link" />
+    <axis xyz="-1 0 0" />
+    <limit effort="1.1" lower="0" upper="1.03" velocity="2.5303" />
+  </joint>
+  <link name="left_thumb_distal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-9.3250353421736472e-07 -0.0092216958166139763 -0.0022464414712281789" />
+      <mass value="0.01" />
+      <inertia ixx="4.53439708081094e-07" ixy="0" ixz="0" iyy="2.6101216224350947e-07" iyz="-1.20090505524035e-08" izz="5.2010076079456636e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_thumb_distal_link.STL" />
+      </geometry>
+      <material name="revo2_left_thumb_distal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_thumb_distal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_thumb_distal_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 -0.052 0" />
+    <parent link="left_thumb_proximal_link" />
+    <child link="left_thumb_distal_link" />
+    <axis xyz="-1 0 0" />
+    <limit effort="1.1" lower="0" upper="1.03" velocity="2.5303" />
+    </joint>
+  <link name="left_thumb_tip_link">
+    </link>
+  <joint name="left_thumb_tip_joint" type="fixed">
+    <origin rpy="0.06675 0 0" xyz="0 -0.026529 -0.0017734" />
+    <parent link="left_thumb_distal_link" />
+    <child link="left_thumb_tip_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="left_thumb_touch_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-5.5105603595396999e-07 -0.0015679769969614223 -0.0056888113918425586" />
+      <mass value="0.002" />
+      <inertia ixx="6.9337608696321383e-08" ixy="0" ixz="0" iyy="5.6838789495101113e-08" iyz="-3.5148755380579443e-09" izz="1.0288222773007187e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_thumb_touch_link.STL" />
+      </geometry>
+      <material name="revo2_left_thumb_touch_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_thumb_touch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_thumb_touch_joint" type="fixed">
+    <origin rpy="0.17488 0 0" xyz="0 -0.013836 0.0076686" />
+    <parent link="left_thumb_distal_link" />
+    <child link="left_thumb_touch_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="left_index_proximal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0021095762185109556 -1.0018489057074859e-06 0.017433891986291937" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="8.0725407014471423e-07" ixy="0" ixz="-1.8489857513645255e-08" iyy="7.6517802541226111e-07" iyz="0" izz="2.7130906026168039e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_index_proximal_link.STL" />
+      </geometry>
+      <material name="revo2_left_index_proximal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_index_proximal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_index_proximal_joint" type="revolute">
+    <origin rpy="0.11819 0.14743 0.17422" xyz="-0.0021349 -0.029578 0.080876" />
+    <parent link="left_hand_base_link" />
+    <child link="left_index_proximal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.41" velocity="2.2685" />
+  </joint>
+  <link name="left_index_distal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0034973861673681678 -8.6913011917289015e-08 0.014024367479174444" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="9.573382382798683e-07" ixy="0" ixz="-2.9240822964098857e-07" iyy="1.0538009354304963e-06" iyz="0" izz="2.4208109624630676e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_index_distal_link.STL" />
+      </geometry>
+      <material name="revo2_left_index_distal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_index_distal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_index_distal_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.032" />
+    <parent link="left_index_proximal_link" />
+    <child link="left_index_distal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.63" velocity="2.2685" />
+    </joint>
+  <link name="left_index_tip_link">
+    </link>
+  <joint name="left_index_tip_joint" type="fixed">
+    <origin rpy="0 0.48723 0" xyz="0.011097 0 0.035739" />
+    <parent link="left_index_distal_link" />
+    <child link="left_index_tip_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="left_index_touch_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0030756425070118062 -3.9046886263805012e-08 0.0026249048738638684" />
+      <mass value="0.002" />
+      <inertia ixx="3.6524673961438282e-08" ixy="0" ixz="8.6063395532046128e-09" iyy="2.9796812970068342e-08" iyz="0" izz="1.721545025385639e-08" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_index_touch_link.STL" />
+      </geometry>
+      <material name="revo2_left_index_touch_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_index_touch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_index_touch_joint" type="fixed">
+    <origin rpy="0 0.4756 0" xyz="0.014497 0 0.023303" />
+    <parent link="left_index_distal_link" />
+    <child link="left_index_touch_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="left_middle_proximal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0021463337350766396 -1.4625211059774783e-06 0.020086308617024221" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="9.948385373762115e-07" ixy="0" ixz="-2.4771872948759328e-08" iyy="9.6305285606291445e-07" iyz="0" izz="2.7511820938354049e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_middle_proximal_link.STL" />
+      </geometry>
+      <material name="revo2_left_middle_proximal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_middle_proximal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_middle_proximal_joint" type="revolute">
+    <origin rpy="0.039468 0.1483 0.057975" xyz="-0.0045935 -0.010061 0.084993" />
+    <parent link="left_hand_base_link" />
+    <child link="left_middle_proximal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.41" velocity="2.2685" />
+  </joint>
+  <link name="left_middle_distal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0020908529801784512 -4.5736890814486051e-07 0.01671650106616987" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="1.2569103327928516e-06" ixy="0" ixz="-2.401473206856006e-07" iyy="1.3028330363650818e-06" iyz="0" izz="1.9763470195018145e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_middle_distal_link.STL" />
+      </geometry>
+      <material name="revo2_left_middle_distal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_middle_distal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_middle_distal_joint" type="revolute">
+    <origin rpy="0 0.12654 0" xyz="0 0 0.037" />
+    <parent link="left_middle_proximal_link" />
+    <child link="left_middle_distal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.63" velocity="2.2685" />
+    </joint>
+  <link name="left_middle_tip_link">
+    </link>
+  <joint name="left_middle_tip_joint" type="fixed">
+    <origin rpy="0 0.34907 0" xyz="0.0073534 0 0.041703" />
+    <parent link="left_middle_distal_link" />
+    <child link="left_middle_tip_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="left_middle_touch_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0032264874449576693 -1.6464806441374979e-08 0.0030199156890812172" />
+      <mass value="0.002" />
+      <inertia ixx="4.3751562105730887e-08" ixy="0" ixz="1.0061853574977109e-08" iyy="3.6155257950531593e-08" iyz="0" izz="1.9203682361461601e-08" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_middle_touch_link.STL" />
+      </geometry>
+      <material name="revo2_left_middle_touch_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_middle_touch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_middle_touch_joint" type="fixed">
+    <origin rpy="0 0.34907 0" xyz="0.012493 0 0.028393" />
+    <parent link="left_middle_distal_link" />
+    <child link="left_middle_touch_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="left_ring_proximal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.002241163016263785 -8.4923846884662759e-07 0.018974576063196438" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="9.21960830860337e-07" ixy="0" ixz="-2.1402177757323032e-08" iyy="8.7978518100134324e-07" iyz="0" izz="2.6981238700334672e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_ring_proximal_link.STL" />
+      </geometry>
+      <material name="revo2_left_ring_proximal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_ring_proximal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_ring_proximal_joint" type="revolute">
+    <origin rpy="-0.039462 0.14721 -0.057932" xyz="-0.0046877 0.010026 0.083982" />
+    <parent link="left_hand_base_link" />
+    <child link="left_ring_proximal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.41" velocity="2.2685" />
+  </joint>
+  <link name="left_ring_distal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0019691538124462942 -3.4712054827091547e-07 0.016229097338575658" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="1.2032005239980334e-06" ixy="0" ixz="-2.3259339845713864e-07" iyy="1.2461108965833513e-06" iyz="0" izz="1.9261810732426007e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_ring_distal_link.STL" />
+      </geometry>
+      <material name="revo2_left_ring_distal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_ring_distal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_ring_distal_joint" type="revolute">
+    <origin rpy="0 0.12654 0" xyz="0 0 0.035" />
+    <parent link="left_ring_proximal_link" />
+    <child link="left_ring_distal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.63" velocity="2.2685" />
+    </joint>
+  <link name="left_ring_tip_link">
+    </link>
+  <joint name="left_ring_tip_joint" type="fixed">
+    <origin rpy="0 0.34907 0" xyz="0.0071824 0 0.040734" />
+    <parent link="left_ring_distal_link" />
+    <child link="left_ring_tip_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="left_ring_touch_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0030536856758857163 -2.2421376448217619e-08 0.0030774156162143426" />
+      <mass value="0.002" />
+      <inertia ixx="4.0792303970112657e-08" ixy="0" ixz="9.3093997531703186e-09" iyy="3.3284943655501508e-08" iyz="0" izz="1.7990091011534739e-08" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_ring_touch_link.STL" />
+      </geometry>
+      <material name="revo2_left_ring_touch_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_ring_touch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_ring_touch_joint" type="fixed">
+    <origin rpy="0 0.34907 0" xyz="0.012028 0 0.027796" />
+    <parent link="left_ring_distal_link" />
+    <child link="left_ring_touch_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="left_pinky_proximal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0019751463194913974 6.4981026612137112e-08 0.015824327842517756" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="7.0779884784116139e-07" ixy="0" ixz="-1.3722323933888289e-08" iyy="6.6116859611754332e-07" iyz="0" izz="2.7015041652352649e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_pinky_proximal_link.STL" />
+      </geometry>
+      <material name="revo2_left_pinky_proximal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_pinky_proximal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_pinky_proximal_joint" type="revolute">
+    <origin rpy="-0.11815 0.14491 -0.17392" xyz="-0.0023733 0.029356 0.078694" />
+    <parent link="left_hand_base_link" />
+    <child link="left_pinky_proximal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.41" velocity="2.2685" />
+  </joint>
+  <link name="left_pinky_distal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0032566663967065887 6.0349934992072735e-08 0.012848446629738369" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="8.4398368399810062e-07" ixy="0" ixz="-2.5703579314090776e-07" iyy="9.2770964490637625e-07" iyz="0" izz="2.2973324087645152e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_pinky_distal_link.STL" />
+      </geometry>
+      <material name="revo2_left_pinky_distal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_pinky_distal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_pinky_distal_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.029" />
+    <parent link="left_pinky_proximal_link" />
+    <child link="left_pinky_distal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.63" velocity="2.2685" />
+    </joint>
+  <link name="left_pinky_tip_link">
+    </link>
+  <joint name="left_pinky_tip_joint" type="fixed">
+    <origin rpy="0 0.4756 0" xyz="0.010221 0 0.032918" />
+    <parent link="left_pinky_distal_link" />
+    <child link="left_pinky_tip_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="left_pinky_touch_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0028960060506516769 1.3502056552567891e-08 0.0016531329149271808" />
+      <mass value="0.002" />
+      <inertia ixx="3.6971683787748592e-08" ixy="0" ixz="7.6565030051316787e-09" iyy="2.8590110714915212e-08" iyz="0" izz="1.7539244571260405e-08" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/left/left_pinky_touch_link.STL" />
+      </geometry>
+      <material name="revo2_left_pinky_touch_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/left/left_pinky_touch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_pinky_touch_joint" type="fixed">
+    <origin rpy="0 0.4756 0" xyz="0.01401 0 0.021124" />
+    <parent link="left_pinky_distal_link" />
+    <child link="left_pinky_touch_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <joint name="left_revo2_mount_joint" type="fixed">
+    <origin xyz="0.0591 0 0" rpy="-1.570796326 0 -1.570796326" />
+    <parent link="left_wrist_yaw_link" />
+    <child link="left_hand_base_link" />
+  </joint>
+  <link name="right_base2_link">
+    <inertial>
+      <origin xyz="-0.00283400 0 0.00000145" rpy="0 0 0" />
+      <mass value="0.02280635" />
+      <inertia ixx="0.00000768" ixy="0.00000000" ixz="0.00000000" iyy="0.00000580" iyz="-0.00000000" izz="0.00000427" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/unitree/robots/g1_with_brainco_hand/meshes/right_base2_link.STL" />
+      </geometry>
+      <material name="white">
+        <color rgba="0.7 0.7 0.7 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/unitree/robots/g1_with_brainco_hand/meshes/right_base2_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_base2_joint" type="fixed">
+    <origin xyz="0.0415 0 0" rpy="0 0 0" />
+    <parent link="right_wrist_yaw_link" />
+    <child link="right_base2_link" />
+  </joint>
+  <link name="right_hand_base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.004990903997332514 -0.0032037440312034332 0.044050778456158846" />
+      <mass value="0.23799999999999999" />
+      <inertia ixx="0.0002124306908330478" ixy="2.1636756939780418e-06" ixz="3.6150282476209766e-06" iyy="0.00016013296706155058" iyz="-1.2235521367601028e-05" izz="7.7421962851898041e-05" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_base_link.STL" />
+      </geometry>
+      <material name="revo2_right_hand_base_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_base_visual_link.STL" />
+      </geometry>
+      <material name="revo2_right_hand_base_link_1">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_thumb_metacarpal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="5.2458020456317336e-05 0.0064128823181311681 -0.0038998195538025612" />
+      <mass value="0.01" />
+      <inertia ixx="1.0391225980670801e-06" ixy="-2.686608698988398e-08" ixz="3.1967028003029185e-09" iyy="9.9133972745252941e-07" iyz="-8.0682999171815212e-08" izz="3.2285483847306921e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_thumb_metacarpal_link.STL" />
+      </geometry>
+      <material name="revo2_right_thumb_metacarpal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_thumb_metacarpal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_thumb_metacarpal_joint" type="revolute">
+    <origin rpy="0 0 -0.16787" xyz="0.005619 0.019867 0.027825" />
+    <parent link="right_hand_base_link" />
+    <child link="right_thumb_metacarpal_link" />
+    <axis xyz="0 0 -1" />
+    <limit effort="0.5" lower="0" upper="1.57" velocity="2.6175" />
+  </joint>
+  <link name="right_thumb_proximal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-8.8976221451061982e-07 0.027909287394738479 -0.0021694010930280367" />
+      <mass value="0.050000000000000003" />
+      <inertia ixx="1.104123680739091e-05" ixy="0" ixz="0" iyy="1.7788117951772212e-06" iyz="2.7554239260883434e-08" izz="1.1565286467741584e-05" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_thumb_proximal_visual_link.STL" />
+      </geometry>
+      <material name="revo2_right_thumb_proximal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_thumb_proximal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_thumb_proximal_joint" type="revolute">
+    <origin rpy="0.17488 0.23736 0.16787" xyz="0 0.014227 0" />
+    <parent link="right_thumb_metacarpal_link" />
+    <child link="right_thumb_proximal_link" />
+    <axis xyz="1 0 0" />
+    <limit effort="1.1" lower="0" upper="1.03" velocity="2.5303" />
+  </joint>
+  <link name="right_thumb_distal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="1.4965529033365585e-05 0.0092285213242344049 -0.0022560307869527903" />
+      <mass value="0.01" />
+      <inertia ixx="4.533196792755254e-07" ixy="0" ixz="0" iyy="2.6015654118185334e-07" iyz="1.1609788284952737e-08" izz="5.1978354121297457e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_thumb_distal_link.STL" />
+      </geometry>
+      <material name="revo2_right_thumb_distal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_thumb_distal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_thumb_distal_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0.052 0" />
+    <parent link="right_thumb_proximal_link" />
+    <child link="right_thumb_distal_link" />
+    <axis xyz="1 0 0" />
+    <limit effort="1.1" lower="0" upper="1.03" velocity="2.5303" />
+    </joint>
+  <link name="right_thumb_tip_link" />
+  <joint name="right_thumb_tip_joint" type="fixed">
+    <origin rpy="-0.0667504507189062 0 0" xyz="0 0.0265287811635831 -0.00177344281307929" />
+    <parent link="right_thumb_distal_link" />
+    <child link="right_thumb_tip_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="right_thumb_touch_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="5.6813574638317635e-08 0.00098883010262015912 -0.005830397007602595" />
+      <mass value="0.002" />
+      <inertia ixx="6.9328304217138168e-08" ixy="0" ixz="0" iyy="5.8128553580518415e-08" iyz="8.374835965466018e-09" izz="1.0158078425950607e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_thumb_touch_link.STL" />
+      </geometry>
+      <material name="revo2_right_thumb_touch_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_thumb_touch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_thumb_touch_joint" type="fixed">
+    <origin rpy="-0.0667504507189062 0 0" xyz="0 0.0137927522748974 0.00767659940411662" />
+    <parent link="right_thumb_distal_link" />
+    <child link="right_thumb_touch_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="right_index_proximal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0021097272761044172 7.6306416407769004e-07 0.01743348206585104" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="8.0730313716784787e-07" ixy="0" ixz="-1.848299774099326e-08" iyy="7.6522456398412412e-07" iyz="0" izz="2.7130639796167395e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_index_proximal_link.STL" />
+      </geometry>
+      <material name="revo2_right_index_proximal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_index_proximal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_index_proximal_joint" type="revolute">
+    <origin rpy="-0.11819 0.14743 -0.17422" xyz="-0.0021181 0.029568 0.080876" />
+    <parent link="right_hand_base_link" />
+    <child link="right_index_proximal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.41" velocity="2.2685" />
+  </joint>
+  <link name="right_index_distal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0034973237026168936 -2.4397073674875195e-08 0.014024109720633237" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="9.5735623721861486e-07" ixy="0" ixz="-2.9241583816658407e-07" iyy="1.0538246961086644e-06" iyz="0" izz="2.42079607880269e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_index_distal_link.STL" />
+      </geometry>
+      <material name="revo2_right_index_distal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_index_distal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_index_distal_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.032" />
+    <parent link="right_index_proximal_link" />
+    <child link="right_index_distal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.63" velocity="2.2685" />
+    </joint>
+  <link name="right_index_tip_link" />
+  <joint name="right_index_tip_joint" type="fixed">
+    <origin rpy="0 0.4756 0" xyz="0.011097 0 0.035739" />
+    <parent link="right_index_distal_link" />
+    <child link="right_index_tip_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="right_index_touch_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0030756425122115622 0.0025978485335546638 -0.00037591028031885978" />
+      <mass value="0.002" />
+      <inertia ixx="3.6524673994293294e-08" ixy="8.5175534114718623e-09" ixz="0" iyy="1.7473827933116035e-08" iyz="0" izz="2.9538435400132262e-08" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_index_touch_link.STL" />
+      </geometry>
+      <material name="revo2_right_index_touch_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_index_touch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_index_touch_joint" type="fixed">
+    <origin rpy="1.7145 0.4756 0" xyz="0.014497 0 0.023303" />
+    <parent link="right_index_distal_link" />
+    <child link="right_index_touch_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="right_middle_proximal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0021465008816623902 7.0198977972219691e-07 0.020085720078992036" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="9.9491303633046107e-07" ixy="0" ixz="-2.4754791568584298e-08" iyy="9.6311492131951794e-07" iyz="0" izz="2.7511378046084461e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_middle_proximal_link.STL" />
+      </geometry>
+      <material name="revo2_right_middle_proximal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_middle_proximal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_middle_proximal_joint" type="revolute">
+    <origin rpy="-0.039468 0.1483 -0.057975" xyz="-0.0045767 0.010051 0.084993" />
+    <parent link="right_hand_base_link" />
+    <child link="right_middle_proximal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.41" velocity="2.2685" />
+  </joint>
+  <link name="right_middle_distal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0041837929560845618 -2.4434499929700306e-07 0.016319389628929492" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="1.1798753837899665e-06" ixy="0" ixz="-3.6506311352307707e-07" iyy="1.3027657805093205e-06" iyz="0" izz="2.74608919409821e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_middle_distal_link.STL" />
+      </geometry>
+      <material name="revo2_right_middle_distal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_middle_distal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_middle_distal_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.037" />
+    <parent link="right_middle_proximal_link" />
+    <child link="right_middle_distal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.63" velocity="2.2685" />
+    </joint>
+  <link name="right_middle_tip_link" />
+  <joint name="right_middle_tip_joint" type="fixed">
+    <origin rpy="0 0.4756 0" xyz="0.012558 0 0.040442" />
+    <parent link="right_middle_distal_link" />
+    <child link="right_middle_tip_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="right_middle_touch_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00322648744586361 -1.6462838133423407e-08 0.003019915690530168" />
+      <mass value="0.002" />
+      <inertia ixx="4.3751562145816199e-08" ixy="0" ixz="1.0061853585855406e-08" iyy="3.6155257979078231e-08" iyz="0" izz="1.9203682382619578e-08" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_middle_touch_link.STL" />
+      </geometry>
+      <material name="revo2_right_middle_touch_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_middle_touch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_middle_touch_joint" type="fixed">
+    <origin rpy="0 0.475602221168456 0" xyz="0.015975871997898 0 0.0265894268903603" />
+    <parent link="right_middle_distal_link" />
+    <child link="right_middle_touch_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="right_ring_proximal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0022400419451280916 -3.1642021509100015e-07 0.018974768492582277" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="9.2192274611012312e-07" ixy="0" ixz="-2.1434689277025735e-08" iyy="8.7978062842405091e-07" iyz="0" izz="2.6982721614770708e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_ring_proximal_link.STL" />
+      </geometry>
+      <material name="revo2_right_ring_proximal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_ring_proximal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_ring_proximal_joint" type="revolute">
+    <origin rpy="0.039462 0.14721 0.057932" xyz="-0.0046709 -0.010037 0.083982" />
+    <parent link="right_hand_base_link" />
+    <child link="right_ring_proximal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.41" velocity="2.2685" />
+  </joint>
+  <link name="right_ring_distal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0040015207242677124 -8.8623994317685101e-09 0.015850785477788721" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="1.1288595625756626e-06" ixy="0" ixz="-3.5169780079057451e-07" iyy="1.2460980805338906e-06" iyz="0" izz="2.6695244589650716e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_ring_distal_link.STL" />
+      </geometry>
+      <material name="revo2_right_ring_distal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_ring_distal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_ring_distal_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.035" />
+    <parent link="right_ring_proximal_link" />
+    <child link="right_ring_distal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.63" velocity="2.2685" />
+    </joint>
+  <link name="right_ring_tip_link" />
+  <joint name="right_ring_tip_joint" type="fixed">
+    <origin rpy="0 0.4756 0" xyz="0.012266 0 0.039501" />
+    <parent link="right_ring_distal_link" />
+    <child link="right_ring_tip_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="right_ring_touch_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0030536856753133582 -2.2426892399133907e-08 0.0030774156138667829" />
+      <mass value="0.002" />
+      <inertia ixx="4.0792303960880825e-08" ixy="0" ixz="9.3093997541088973e-09" iyy="3.3284943664080675e-08" iyz="0" izz="1.799009099498985e-08" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_ring_touch_link.STL" />
+      </geometry>
+      <material name="revo2_right_ring_touch_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_ring_touch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_ring_touch_joint" type="fixed">
+    <origin rpy="0 0.475602221168648 0" xyz="0.0154392324697935 0 0.0260561041381566" />
+    <parent link="right_ring_distal_link" />
+    <child link="right_ring_touch_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="right_pinky_proximal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.001975334662528235 -2.9023458616399922e-07 0.015823987731302468" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="7.0777766209880607e-07" ixy="0" ixz="-1.3707570348896025e-08" iyy="6.6113592506802425e-07" iyz="0" izz="2.7014080371543559e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_pinky_proximal_link.STL" />
+      </geometry>
+      <material name="revo2_right_pinky_proximal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_pinky_proximal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_pinky_proximal_joint" type="revolute">
+    <origin rpy="0.11815 0.14491 0.17392" xyz="-0.0023566 -0.029366 0.078694" />
+    <parent link="right_hand_base_link" />
+    <child link="right_pinky_proximal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.41" velocity="2.2685" />
+  </joint>
+  <link name="right_pinky_distal_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0032566529441424874 -3.0043695826476274e-07 0.012848383340721354" />
+      <mass value="0.0089999999999999993" />
+      <inertia ixx="8.4398585277410544e-07" ixy="0" ixz="-2.5703935799039044e-07" iyy="9.2771658916401349e-07" iyz="0" izz="2.2973189795614046e-07" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_pinky_distal_link.STL" />
+      </geometry>
+      <material name="revo2_right_pinky_distal_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_pinky_distal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_pinky_distal_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.029" />
+    <parent link="right_pinky_proximal_link" />
+    <child link="right_pinky_distal_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="2" lower="0" upper="1.63" velocity="2.2685" />
+    </joint>
+  <link name="right_pinky_tip_link" />
+  <joint name="right_pinky_tip_joint" type="fixed">
+    <origin rpy="0 0.4756 0" xyz="0.010221 0 0.032918" />
+    <parent link="right_pinky_distal_link" />
+    <child link="right_pinky_tip_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="right_pinky_touch_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0028960060613945678 1.3392487741221686e-08 0.0016531329144734779" />
+      <mass value="0.002" />
+      <inertia ixx="3.6971683917529048e-08" ixy="0" ixz="7.6565029947266085e-09" iyy="2.859011067413845e-08" iyz="0" izz="1.7539244747520166e-08" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/visual/right/right_pinky_touch_link.STL" />
+      </geometry>
+      <material name="revo2_right_pinky_touch_link_0">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="vendor/brainco/revo2_system/meshes/hands/collision/right/right_pinky_touch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_pinky_touch_joint" type="fixed">
+    <origin rpy="0 0.4756 0" xyz="0.01401 0 0.021124" />
+    <parent link="right_pinky_distal_link" />
+    <child link="right_pinky_touch_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <joint name="right_revo2_mount_joint" type="fixed">
+    <origin xyz="0.0591 0 0" rpy="1.570796326 0 1.570796326" />
+    <parent link="right_wrist_yaw_link" />
+    <child link="right_hand_base_link" />
+  </joint>
+</robot>

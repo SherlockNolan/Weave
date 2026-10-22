@@ -1,0 +1,724 @@
+{
+  "files": [
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/urdf/revo2_left.urdf",
+      "path": "vendor/brainco/revo2_system/urdf/revo2_left.urdf",
+      "git_blob": "88dfba78368b9dc8e8be23b0b7d1e065ee4b4b97",
+      "sha256": "35b4d93daeb84c5732ecec0cc5c64fffb554ffc2ae04bde2e962cf36d4e5d2a8",
+      "bytes": 21389
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/urdf/revo2_right.urdf",
+      "path": "vendor/brainco/revo2_system/urdf/revo2_right.urdf",
+      "git_blob": "8127607f7aa7cc291d625757379df2de288bb66e",
+      "sha256": "3c4d1a5fe7b4a791f992cdc6fb55e61a50f6da7f2a1122ace356b977cec229df",
+      "bytes": 21335
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_base_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_base_link.STL",
+      "git_blob": "30ca1227f2523287369c9390ac2e93dd5fc918bb",
+      "sha256": "340401f796bbac762cf85d53e6db4be02cce2f06b66fcf8d6ecb5ba883f06afd",
+      "bytes": 2368784
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_index_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_index_distal_link.STL",
+      "git_blob": "a66e1c4ac6ba3c9b81fc6d776c3537220a8a50d3",
+      "sha256": "634d5c569628c3c2dbc92932065748ed830fb17ccf933959a5834b2759ab8acd",
+      "bytes": 408284
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_index_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_index_proximal_link.STL",
+      "git_blob": "2ef94bf9c9bb15a47876f7a634e105d5adaee21a",
+      "sha256": "1fed32c1a8451282b314579eed3903a288a62524dc7d8b08464fb559261bb580",
+      "bytes": 339884
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_index_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_index_touch_link.STL",
+      "git_blob": "0e00750db44cb481fa4dabee3721fcc0c769f3e9",
+      "sha256": "821249c18a0cf66c87aa4029de1f0ce532f03e7a173c951a5121f2df3b301b52",
+      "bytes": 99984
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_middle_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_middle_distal_link.STL",
+      "git_blob": "80ce8924f444a99ebe3d08e1b8df7151aa1a3374",
+      "sha256": "e0ff6f648bbb7712bbc7f06bacdd3a574cac2e1bc2398383b57da2d76c88932a",
+      "bytes": 406584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_middle_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_middle_proximal_link.STL",
+      "git_blob": "59b09b982abdb137b1cd642a6eb3c68a027a97b7",
+      "sha256": "50122ebf6e75698ba2c469efd58e07ad3f82b1a002728cd15802f1c435d54c0c",
+      "bytes": 334284
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_middle_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_middle_touch_link.STL",
+      "git_blob": "c582ada32dfc30d9ad628673b496a9b8eb4e82d8",
+      "sha256": "c91b30341a816ac079ec1268c8427ca3a010356002a30b6847b2853a0edf1e6b",
+      "bytes": 69884
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_pinky_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_pinky_distal_link.STL",
+      "git_blob": "08a1c7ee2de7014f270e2f976c8d476dfda02928",
+      "sha256": "d52822897dcc0de60fff7f2652a7d12a342b47905eff7555eaabcc1bcfcaeac4",
+      "bytes": 554484
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_pinky_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_pinky_proximal_link.STL",
+      "git_blob": "33ff5b7bf825161f9e0976beeff0da660e4539e4",
+      "sha256": "9f1408568638fbbec4cf32507d4b233fbd8cdb9c862e07cc7da6cd826497caa6",
+      "bytes": 346784
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_pinky_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_pinky_touch_link.STL",
+      "git_blob": "2e8d60336bff22b2d4eb5a29c37b304c8da735ea",
+      "sha256": "850ad4ad9daf4188aa17f96588fe5541fb0c70be10d714930b3cb816748258a0",
+      "bytes": 68584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_ring_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_ring_distal_link.STL",
+      "git_blob": "7b5be4d1852db884e60e09b9b5e55edba3e75552",
+      "sha256": "c59b62ef04c9cb436f6a6bac5ae9be985eca0d538bc58380c40c00d16079d580",
+      "bytes": 529784
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_ring_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_ring_proximal_link.STL",
+      "git_blob": "26189dc0ddb8fe84263502e52925fe81180ba809",
+      "sha256": "77220c07d5bbc119cb828af89f35cb4cef755bbc98a1cae2dda846268ff59501",
+      "bytes": 281184
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_ring_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_ring_touch_link.STL",
+      "git_blob": "fdd46e55c6f89ca7f8c2322dca6f6c1ef9a39e09",
+      "sha256": "c2fb7d2c4fb0df91209ab7158d5f17ab59a7aa56522a9e91a3c3884a35ac6ae0",
+      "bytes": 71584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_thumb_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_thumb_distal_link.STL",
+      "git_blob": "7bd2bf9bf4b36b968f104e5868e43dc00442c9f6",
+      "sha256": "99300669452dc8e34d5f62caf31c9c769077af45e0127511cd0c56967fe691a6",
+      "bytes": 96284
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_thumb_metacarpal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_thumb_metacarpal_link.STL",
+      "git_blob": "4797f18b0f54d328de0dc0308bccea0dd5f42b63",
+      "sha256": "415a75193e7773572b0df8a80fa4e1d187a67901a5ff381a89ee5b7df64735ea",
+      "bytes": 290384
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_thumb_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_thumb_proximal_link.STL",
+      "git_blob": "de88b8860babea9ce54acd5ad83c13c0224b826f",
+      "sha256": "ccffe779ed683ec5c2f24e3776c11a127e341743142ddd8f275bfded76938da8",
+      "bytes": 620384
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/left/left_thumb_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/left/left_thumb_touch_link.STL",
+      "git_blob": "5603e84a87785465ccc61f940f218f671b627281",
+      "sha256": "e31a6aa8faf2be8a6bfc3f222ebe7cf59fb5266487d1d98b86a55a7a2524fc20",
+      "bytes": 125084
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_base_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_base_link.STL",
+      "git_blob": "991af9692c0d51531149e821466966220f0a0931",
+      "sha256": "2754b59a9132a04a28cf5725d5478599218c9f7dd4b2e13329147e824211ec44",
+      "bytes": 2364184
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_index_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_index_distal_link.STL",
+      "git_blob": "e32e4fb57a4e53590255e3e0c485be9c523458f2",
+      "sha256": "44d4b12f55e85baf77685443aa1f38ae521130a58f0b742920f2a99abc1a1efb",
+      "bytes": 411284
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_index_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_index_proximal_link.STL",
+      "git_blob": "81d4896c890b4622f18f91bb7186be2d5c979bcb",
+      "sha256": "94fdff414f1c29940495d1f0264a50621340cfc30f9b5365b3490d39ae367f2f",
+      "bytes": 339884
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_index_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_index_touch_link.STL",
+      "git_blob": "b72e1aa85642a26988961fbaf82bf15ee5f6ee01",
+      "sha256": "a7f7b054539a858173b3e002be2df5ebc60a3e3d8bdf38e32f490a1475809251",
+      "bytes": 99984
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_middle_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_middle_distal_link.STL",
+      "git_blob": "9f432d77a28ee49ef7442afb201553e41d77c120",
+      "sha256": "8f11ee9addab1a1eab40fd765c21389e6f98397166ae5899dc83ddf66f871b3b",
+      "bytes": 408584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_middle_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_middle_proximal_link.STL",
+      "git_blob": "b13e2fc4884241dbe4459f1b9816dd0894b9551c",
+      "sha256": "56d9f019bad093daf93a736596ab4e7d9b17fb3c79e2be4181d909958cf76a37",
+      "bytes": 333384
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_middle_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_middle_touch_link.STL",
+      "git_blob": "f03dd73eac13aca756a6160789c9a653790aaeff",
+      "sha256": "1fdd83c56c7eccb38b1af2d75742f1681d6a4dff93e9f15a37173e22117fecf0",
+      "bytes": 69884
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_pinky_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_pinky_distal_link.STL",
+      "git_blob": "bd00b6b72de3c9a18f9d2eb1411ae8421dc7bea9",
+      "sha256": "14c25fb57059978594ea518860522ae401e3a3602d6a39297c52807620e30bac",
+      "bytes": 554084
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_pinky_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_pinky_proximal_link.STL",
+      "git_blob": "b9eea28dcc1fe8a6f21f50fa732db9b56afeabc8",
+      "sha256": "1a4ba525880efd4da2bcdfd5d2d69a684a02f8c7c01f8e185adf23f47469d0f4",
+      "bytes": 343284
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_pinky_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_pinky_touch_link.STL",
+      "git_blob": "278045d853e7670b0c3fec417db257c5c75ae80d",
+      "sha256": "96ed796046634fead6ac789be979e3b013c3a6d32ba866a31ea92f7c3ebf19ee",
+      "bytes": 68584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_ring_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_ring_distal_link.STL",
+      "git_blob": "3f2bed0de3ff43a2a2676f5aeceb8a4eaadd6dd9",
+      "sha256": "40acf67de96d432bbbc0a3eda7bbb292cbd2ea0c5f0c78a9b299cf360f3a9f07",
+      "bytes": 529684
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_ring_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_ring_proximal_link.STL",
+      "git_blob": "050c4037f2b4e1a4a00bbe8eacab04d7ae905a13",
+      "sha256": "89c64252e891bc91567241b74de18d986e20e4e57d74cd10289d7171f6c57dc6",
+      "bytes": 281484
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_ring_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_ring_touch_link.STL",
+      "git_blob": "82094bb9e50dee71436cac373fd43076aed33055",
+      "sha256": "f9c0ac36994b014d25b7d5c292cbd39192e5146c8961ded1e8a9702e2d4e62c2",
+      "bytes": 71584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_thumb_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_thumb_distal_link.STL",
+      "git_blob": "825670a057bb9ed53c5945080d30a34db3e4d187",
+      "sha256": "f489da4e47935510ffba42016052318f123ef07360fdbbfaadcb0f7d8ddbe28f",
+      "bytes": 95834
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_thumb_metacarpal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_thumb_metacarpal_link.STL",
+      "git_blob": "1904b51b818f642612da226b7616a09b194cec17",
+      "sha256": "15464fa122dddc49a56462898777e9e407f22b81abb03d10aba0d95f8fefc83a",
+      "bytes": 289584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_thumb_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_thumb_proximal_link.STL",
+      "git_blob": "ee416a362d57c820fa66ab31bbf273ffa205017a",
+      "sha256": "17d6f8575ffdc49fd0c8a4525650180a6806ee3fc0a6485f0610040010aeed34",
+      "bytes": 620984
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/collision/right/right_thumb_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/collision/right/right_thumb_touch_link.STL",
+      "git_blob": "151545246301a360b3ff0050a191e3460acab69d",
+      "sha256": "184c29c27b46ea21df210a13af795c49569fcc1b36cd8b8ebe5aa66b4a0f5612",
+      "bytes": 123084
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_base_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_base_link.STL",
+      "git_blob": "30ca1227f2523287369c9390ac2e93dd5fc918bb",
+      "sha256": "340401f796bbac762cf85d53e6db4be02cce2f06b66fcf8d6ecb5ba883f06afd",
+      "bytes": 2368784
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_base_visual_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_base_visual_link.STL",
+      "git_blob": "a6a8dfbdb460dd9692a11880dbe8795eb3a225b6",
+      "sha256": "d9d2558da8369d2f0993e46eed3d1e2a11b4927ab2b8c1731d460b72fea04e9e",
+      "bytes": 252684
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_index_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_index_distal_link.STL",
+      "git_blob": "a66e1c4ac6ba3c9b81fc6d776c3537220a8a50d3",
+      "sha256": "634d5c569628c3c2dbc92932065748ed830fb17ccf933959a5834b2759ab8acd",
+      "bytes": 408284
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_index_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_index_proximal_link.STL",
+      "git_blob": "2ef94bf9c9bb15a47876f7a634e105d5adaee21a",
+      "sha256": "1fed32c1a8451282b314579eed3903a288a62524dc7d8b08464fb559261bb580",
+      "bytes": 339884
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_index_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_index_touch_link.STL",
+      "git_blob": "0e00750db44cb481fa4dabee3721fcc0c769f3e9",
+      "sha256": "821249c18a0cf66c87aa4029de1f0ce532f03e7a173c951a5121f2df3b301b52",
+      "bytes": 99984
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_middle_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_middle_distal_link.STL",
+      "git_blob": "80ce8924f444a99ebe3d08e1b8df7151aa1a3374",
+      "sha256": "e0ff6f648bbb7712bbc7f06bacdd3a574cac2e1bc2398383b57da2d76c88932a",
+      "bytes": 406584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_middle_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_middle_proximal_link.STL",
+      "git_blob": "59b09b982abdb137b1cd642a6eb3c68a027a97b7",
+      "sha256": "50122ebf6e75698ba2c469efd58e07ad3f82b1a002728cd15802f1c435d54c0c",
+      "bytes": 334284
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_middle_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_middle_touch_link.STL",
+      "git_blob": "c582ada32dfc30d9ad628673b496a9b8eb4e82d8",
+      "sha256": "c91b30341a816ac079ec1268c8427ca3a010356002a30b6847b2853a0edf1e6b",
+      "bytes": 69884
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_pinky_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_pinky_distal_link.STL",
+      "git_blob": "08a1c7ee2de7014f270e2f976c8d476dfda02928",
+      "sha256": "d52822897dcc0de60fff7f2652a7d12a342b47905eff7555eaabcc1bcfcaeac4",
+      "bytes": 554484
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_pinky_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_pinky_proximal_link.STL",
+      "git_blob": "33ff5b7bf825161f9e0976beeff0da660e4539e4",
+      "sha256": "9f1408568638fbbec4cf32507d4b233fbd8cdb9c862e07cc7da6cd826497caa6",
+      "bytes": 346784
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_pinky_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_pinky_touch_link.STL",
+      "git_blob": "2e8d60336bff22b2d4eb5a29c37b304c8da735ea",
+      "sha256": "850ad4ad9daf4188aa17f96588fe5541fb0c70be10d714930b3cb816748258a0",
+      "bytes": 68584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_ring_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_ring_distal_link.STL",
+      "git_blob": "7b5be4d1852db884e60e09b9b5e55edba3e75552",
+      "sha256": "c59b62ef04c9cb436f6a6bac5ae9be985eca0d538bc58380c40c00d16079d580",
+      "bytes": 529784
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_ring_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_ring_proximal_link.STL",
+      "git_blob": "26189dc0ddb8fe84263502e52925fe81180ba809",
+      "sha256": "77220c07d5bbc119cb828af89f35cb4cef755bbc98a1cae2dda846268ff59501",
+      "bytes": 281184
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_ring_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_ring_touch_link.STL",
+      "git_blob": "fdd46e55c6f89ca7f8c2322dca6f6c1ef9a39e09",
+      "sha256": "c2fb7d2c4fb0df91209ab7158d5f17ab59a7aa56522a9e91a3c3884a35ac6ae0",
+      "bytes": 71584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_thumb_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_thumb_distal_link.STL",
+      "git_blob": "7bd2bf9bf4b36b968f104e5868e43dc00442c9f6",
+      "sha256": "99300669452dc8e34d5f62caf31c9c769077af45e0127511cd0c56967fe691a6",
+      "bytes": 96284
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_thumb_metacarpal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_thumb_metacarpal_link.STL",
+      "git_blob": "4797f18b0f54d328de0dc0308bccea0dd5f42b63",
+      "sha256": "415a75193e7773572b0df8a80fa4e1d187a67901a5ff381a89ee5b7df64735ea",
+      "bytes": 290384
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_thumb_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_thumb_proximal_link.STL",
+      "git_blob": "de88b8860babea9ce54acd5ad83c13c0224b826f",
+      "sha256": "ccffe779ed683ec5c2f24e3776c11a127e341743142ddd8f275bfded76938da8",
+      "bytes": 620384
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_thumb_proximal_visual_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_thumb_proximal_visual_link.STL",
+      "git_blob": "65c9f39a56b5d29d4c4ba5bc8553b4ac87289f40",
+      "sha256": "bcd5279fb8a4d8ba4b06b3d302caa567fde9add81b057943cc6a445abb9e27b5",
+      "bytes": 771684
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/left/left_thumb_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/left/left_thumb_touch_link.STL",
+      "git_blob": "5603e84a87785465ccc61f940f218f671b627281",
+      "sha256": "e31a6aa8faf2be8a6bfc3f222ebe7cf59fb5266487d1d98b86a55a7a2524fc20",
+      "bytes": 125084
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_base_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_base_link.STL",
+      "git_blob": "991af9692c0d51531149e821466966220f0a0931",
+      "sha256": "2754b59a9132a04a28cf5725d5478599218c9f7dd4b2e13329147e824211ec44",
+      "bytes": 2364184
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_base_visual_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_base_visual_link.STL",
+      "git_blob": "64711b5f934630afe584fe2a0edab68d34544a0a",
+      "sha256": "7357830cda11d9749adc1e796aa0e493f8001ac2c21815d40fdc1406a3b3457c",
+      "bytes": 130584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_index_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_index_distal_link.STL",
+      "git_blob": "e32e4fb57a4e53590255e3e0c485be9c523458f2",
+      "sha256": "44d4b12f55e85baf77685443aa1f38ae521130a58f0b742920f2a99abc1a1efb",
+      "bytes": 411284
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_index_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_index_proximal_link.STL",
+      "git_blob": "81d4896c890b4622f18f91bb7186be2d5c979bcb",
+      "sha256": "94fdff414f1c29940495d1f0264a50621340cfc30f9b5365b3490d39ae367f2f",
+      "bytes": 339884
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_index_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_index_touch_link.STL",
+      "git_blob": "b72e1aa85642a26988961fbaf82bf15ee5f6ee01",
+      "sha256": "a7f7b054539a858173b3e002be2df5ebc60a3e3d8bdf38e32f490a1475809251",
+      "bytes": 99984
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_middle_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_middle_distal_link.STL",
+      "git_blob": "9f432d77a28ee49ef7442afb201553e41d77c120",
+      "sha256": "8f11ee9addab1a1eab40fd765c21389e6f98397166ae5899dc83ddf66f871b3b",
+      "bytes": 408584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_middle_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_middle_proximal_link.STL",
+      "git_blob": "b13e2fc4884241dbe4459f1b9816dd0894b9551c",
+      "sha256": "56d9f019bad093daf93a736596ab4e7d9b17fb3c79e2be4181d909958cf76a37",
+      "bytes": 333384
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_middle_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_middle_touch_link.STL",
+      "git_blob": "f03dd73eac13aca756a6160789c9a653790aaeff",
+      "sha256": "1fdd83c56c7eccb38b1af2d75742f1681d6a4dff93e9f15a37173e22117fecf0",
+      "bytes": 69884
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_pinky_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_pinky_distal_link.STL",
+      "git_blob": "bd00b6b72de3c9a18f9d2eb1411ae8421dc7bea9",
+      "sha256": "14c25fb57059978594ea518860522ae401e3a3602d6a39297c52807620e30bac",
+      "bytes": 554084
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_pinky_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_pinky_proximal_link.STL",
+      "git_blob": "b9eea28dcc1fe8a6f21f50fa732db9b56afeabc8",
+      "sha256": "1a4ba525880efd4da2bcdfd5d2d69a684a02f8c7c01f8e185adf23f47469d0f4",
+      "bytes": 343284
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_pinky_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_pinky_touch_link.STL",
+      "git_blob": "278045d853e7670b0c3fec417db257c5c75ae80d",
+      "sha256": "96ed796046634fead6ac789be979e3b013c3a6d32ba866a31ea92f7c3ebf19ee",
+      "bytes": 68584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_ring_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_ring_distal_link.STL",
+      "git_blob": "3f2bed0de3ff43a2a2676f5aeceb8a4eaadd6dd9",
+      "sha256": "40acf67de96d432bbbc0a3eda7bbb292cbd2ea0c5f0c78a9b299cf360f3a9f07",
+      "bytes": 529684
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_ring_proximal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_ring_proximal_link.STL",
+      "git_blob": "050c4037f2b4e1a4a00bbe8eacab04d7ae905a13",
+      "sha256": "89c64252e891bc91567241b74de18d986e20e4e57d74cd10289d7171f6c57dc6",
+      "bytes": 281484
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_ring_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_ring_touch_link.STL",
+      "git_blob": "82094bb9e50dee71436cac373fd43076aed33055",
+      "sha256": "f9c0ac36994b014d25b7d5c292cbd39192e5146c8961ded1e8a9702e2d4e62c2",
+      "bytes": 71584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_thumb_distal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_thumb_distal_link.STL",
+      "git_blob": "825670a057bb9ed53c5945080d30a34db3e4d187",
+      "sha256": "f489da4e47935510ffba42016052318f123ef07360fdbbfaadcb0f7d8ddbe28f",
+      "bytes": 95834
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_thumb_metacarpal_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_thumb_metacarpal_link.STL",
+      "git_blob": "1904b51b818f642612da226b7616a09b194cec17",
+      "sha256": "15464fa122dddc49a56462898777e9e407f22b81abb03d10aba0d95f8fefc83a",
+      "bytes": 289584
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_thumb_proximal_visual_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_thumb_proximal_visual_link.STL",
+      "git_blob": "6bbe99ee25922bc8050d75998b6209ef5c0d11a8",
+      "sha256": "0c415499f0b28609062d1364cd2500cd801a5f4e6a8a2083ae82b8a870404495",
+      "bytes": 735284
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/meshes/hands/visual/right/right_thumb_touch_link.STL",
+      "path": "vendor/brainco/revo2_system/meshes/hands/visual/right/right_thumb_touch_link.STL",
+      "git_blob": "151545246301a360b3ff0050a191e3460acab69d",
+      "sha256": "184c29c27b46ea21df210a13af795c49569fcc1b36cd8b8ebe5aa66b4a0f5612",
+      "bytes": 123084
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "README.md",
+      "path": "vendor/brainco/README.md",
+      "git_blob": "9248217d407293eb2ffcc426d826d5112f4d929c",
+      "sha256": "93c34d93de4d866808fbb77e6a919d947292c59aa9240a62cf204bb996c8e796",
+      "bytes": 8169
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "RELEASE_NOTES.md",
+      "path": "vendor/brainco/RELEASE_NOTES.md",
+      "git_blob": "245e585b2186d828a408535a08dc0bfaaf91e78d",
+      "sha256": "2183c875fc17e07a876a2df8f7f7757477fb664f3c5f4466f864d45fed528514",
+      "bytes": 3340
+    },
+    {
+      "repository": "BrainCoTech/brainco-description",
+      "commit": "6db7e2ed1d864ee0a3ab6ff62d43a303787137f6",
+      "upstream_path": "revo2_system/README.md",
+      "path": "vendor/brainco/revo2_system/README.md",
+      "git_blob": "912b5d8e3cf6102dbbf633c64ee1820fb047ebf3",
+      "sha256": "fd2f2be74023741955b63ed44024f819bfdae6e6b38e7864decb6f1b3236c407",
+      "bytes": 773
+    },
+    {
+      "repository": "unitreerobotics/unitree_ros",
+      "commit": "5994d4faef0a9cadd3287f8de0199a67eeb2a259",
+      "upstream_path": "robots/g1_with_brainco_hand/g1_29dof_mode_15_brainco_hand.urdf",
+      "path": "vendor/unitree/robots/g1_with_brainco_hand/g1_29dof_mode_15_brainco_hand.urdf",
+      "git_blob": "e2a70595967c3d1335dfdbde8fe523b26772d0c5",
+      "sha256": "6ae8280de78808fe6105524785d5e904763caa1c012747cd072844e4b856e879",
+      "bytes": 72425
+    },
+    {
+      "repository": "unitreerobotics/unitree_ros",
+      "commit": "5994d4faef0a9cadd3287f8de0199a67eeb2a259",
+      "upstream_path": "robots/g1_with_brainco_hand/meshes/left_base2_link.STL",
+      "path": "vendor/unitree/robots/g1_with_brainco_hand/meshes/left_base2_link.STL",
+      "git_blob": "f103e6a94709206c3a555e9e5a5f6dd32d2dfd4e",
+      "sha256": "1a0ca805910d235ea1bab123fce8d05b951196421801a3aed9a9beddd9f88852",
+      "bytes": 123384
+    },
+    {
+      "repository": "unitreerobotics/unitree_ros",
+      "commit": "5994d4faef0a9cadd3287f8de0199a67eeb2a259",
+      "upstream_path": "robots/g1_with_brainco_hand/meshes/right_base2_link.STL",
+      "path": "vendor/unitree/robots/g1_with_brainco_hand/meshes/right_base2_link.STL",
+      "git_blob": "f103e6a94709206c3a555e9e5a5f6dd32d2dfd4e",
+      "sha256": "1a0ca805910d235ea1bab123fce8d05b951196421801a3aed9a9beddd9f88852",
+      "bytes": 123384
+    },
+    {
+      "repository": "unitreerobotics/unitree_ros",
+      "commit": "5994d4faef0a9cadd3287f8de0199a67eeb2a259",
+      "upstream_path": "LICENSE",
+      "path": "vendor/unitree/LICENSE",
+      "git_blob": "6dfdadaa90baa4f7bea7400d3c4e8b9c784ae37f",
+      "sha256": "84aac59fd3246e3ddc49d1387644e8fcf43b0def4f0b9fe687f372e90446df2d",
+      "bytes": 1558
+    }
+  ]
+}
